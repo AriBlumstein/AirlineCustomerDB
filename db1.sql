@@ -1,6 +1,4 @@
--- Database: AirlineCustomer
 
--- DROP DATABASE IF EXISTS "AirlineCustomer";
 
 	
 CREATE TYPE species AS ENUM ('Dog', 'Cat', 'Other');
