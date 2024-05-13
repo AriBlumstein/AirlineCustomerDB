@@ -1,9 +1,10 @@
 
+
 CREATE TYPE species AS ENUM ('Dog', 'Cat', 'Other');
 CREATE TYPE status AS ENUM ('None', 'Silver', 'Gold');
 CREATE TYPE ticketClass AS ENUM ('Economy', 'Premium', 'Business', 'FirstClass');
 CREATE TYPE IDType AS ENUM ('IDCard', 'DriversLicence', 'Passport');
-CREATE TYPE dietaryRestriction AS ENUM ('Kosher', 'Vegan', 'GlutenFree', 'DairyFree', 'Diabetes', 'NutFree');
+CREATE TYPE dietaryRestriction AS ENUM ('None','Kosher', 'Vegan', 'GlutenFree', 'DairyFree', 'Diabetes', 'NutFree');
 							
 
 	
@@ -33,9 +34,9 @@ CREATE TABLE Identification
 CREATE TABLE RewardsCustomer
 (
   MemberID INT NOT NULL,
-  Status status  NOT NULL,
+  Status status  NOT NULL DEFAULT 'None',
   SignUpDate DATE NOT NULL,
-  MilesFlown INT NOT NULL,
+  MilesFlown INT NOT NULL Default 0,
   CustomerID INT NOT NULL,
   PRIMARY KEY (CustomerID),
   FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
@@ -76,12 +77,12 @@ CREATE TABLE Ticket
   TicketID INT NOT NULL,
   TicketClass ticketClass NOT NULL,
   SeatNumber VARCHAR(3) NOT NULL,
-  DietaryRetriction dietaryRestriction  NOT NULL,
-  LuggageNumber INT NOT NULL,
-  OversizedLuggage INT NOT NULL,
+  DietaryRetriction dietaryRestriction NOT NULL DEFAULT 'None',
+  LuggageNumber INT NOT NULL DEFAULT 1,
+  OversizedLuggage INT NOT NULL DEFAULT 0,
   CustomerID INT NOT NULL,
   FlightID INT NOT NULL,
-  Zone Char(1) Not NULL,
+  Zone Char(1) NOT NULL,
   PRIMARY KEY (TicketID),
   FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
   FOREIGN KEY (FlightID) REFERENCES Flight(FlightID),
