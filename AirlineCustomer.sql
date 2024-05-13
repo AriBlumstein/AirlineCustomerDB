@@ -58,7 +58,7 @@ CREATE TABLE FlightInfo
   FlightCode VARCHAR(6) NOT NULL,
   Destination VARCHAR(3) NOT NULL,
   Origin VARCHAR(3) NOT NULL,
-  DepatureTime DATE NOT NULL,
+  DepatureTime TIME NOT NULL,
   PRIMARY KEY (FlightCode)
 );
 
