@@ -1,6 +1,4 @@
 
-
-	
 CREATE TYPE species AS ENUM ('Dog', 'Cat', 'Other');
 CREATE TYPE status AS ENUM ('None', 'Silver', 'Gold');
 CREATE TYPE ticketClass AS ENUM ('Economy', 'Premium', 'Business', 'FirstClass');
@@ -9,7 +7,7 @@ CREATE TYPE dietaryRestriction AS ENUM ('Kosher', 'Vegan', 'GlutenFree', 'DairyF
 							
 
 	
-	CREATE TABLE Customer
+CREATE TABLE Customer
 (
   CustomerID INT NOT NULL,
   Name VARCHAR(25) NOT NULL,
@@ -83,12 +81,14 @@ CREATE TABLE Ticket
   OversizedLuggage INT NOT NULL,
   CustomerID INT NOT NULL,
   FlightID INT NOT NULL,
+  Zone Char(1) Not NULL,
   PRIMARY KEY (TicketID),
   FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
   FOREIGN KEY (FlightID) REFERENCES Flight(FlightID),
   CHECK(TicketID>=1),
   CHECK(LuggageNumber>=0),
-  CHECK(OversizedLuggage>=0)
+  CHECK(OversizedLuggage>=0),
+  CHECK(Zone='A' OR Zone='B' OR Zone='C' OR Zone='D')
 );
 
 CREATE TABLE Review
