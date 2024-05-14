@@ -1,4 +1,4 @@
--
+
 
 CREATE TYPE species AS ENUM ('Dog', 'Cat', 'Other');
 CREATE TYPE status AS ENUM ('None', 'Silver', 'Gold');
@@ -43,7 +43,7 @@ CREATE TABLE RewardsCustomer
   FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
   UNIQUE (MemberID),
   CHECK (MemberID>=1),
-  CHECK (MilesFlown>=1)	
+  CHECK (MilesFlown>=0)	
 );
 
 CREATE TABLE PetCustomer
