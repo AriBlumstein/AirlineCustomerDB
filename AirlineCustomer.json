@@ -337,8 +337,8 @@
                 "isOptional": false,
                 "isComposite": false,
                 "isUnique": false,
-                "x": 939,
-                "y": 444.16666412353516,
+                "x": 965,
+                "y": 410.16666412353516,
                 "id": 71
             }
         },
@@ -743,6 +743,20 @@
                 "y": 452.16666412353516,
                 "id": 512
             }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "Assistance",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 890,
+                "y": 460.16666412353516,
+                "id": 543
+            }
         }
     ],
     "connectors": [
@@ -1110,6 +1124,14 @@
                 "id": 542
             },
             "source": 512,
+            "destination": 66
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 544
+            },
+            "source": 543,
             "destination": 66
         }
     ],
