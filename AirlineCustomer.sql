@@ -5,6 +5,7 @@ CREATE TYPE status AS ENUM ('None', 'Silver', 'Gold');
 CREATE TYPE ticketClass AS ENUM ('Economy', 'Premium', 'Business', 'FirstClass');
 CREATE TYPE IDType AS ENUM ('ID', 'DriversLicence', 'Passport');
 CREATE TYPE dietaryRestriction AS ENUM ('None','Kosher', 'Vegan', 'GlutenFree', 'DairyFree', 'Diabetes', 'NutFree');
+CREATE TYPE assistance AS ENUM ('None', 'WheelChair', 'Minor');
 							
 
 	
@@ -84,6 +85,7 @@ CREATE TABLE Ticket
   CustomerID INT NOT NULL,
   FlightID INT NOT NULL,
   Zone Char(1) NOT NULL,
+  Assistance assistance NOT NULL DEFAULT 'None',
   PRIMARY KEY (TicketID),
   FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
   FOREIGN KEY (FlightID) REFERENCES Flight(FlightID),
