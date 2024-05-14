@@ -1,4 +1,4 @@
-
+-
 
 CREATE TYPE species AS ENUM ('Dog', 'Cat', 'Other');
 CREATE TYPE status AS ENUM ('None', 'Silver', 'Gold');
@@ -28,7 +28,8 @@ CREATE TABLE Identification
   CustomerID INT NOT NULL,
   PRIMARY KEY (IdentificationID),
   FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
-  CHECK (IDnumber>=1)
+  CHECK (IDnumber>=1),
+  CHECK (IdentificationID>=1)
 );
 
 CREATE TABLE RewardsCustomer
