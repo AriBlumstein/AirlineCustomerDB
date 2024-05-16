@@ -79,7 +79,7 @@ CREATE TABLE Ticket
   TicketID INT NOT NULL,
   TicketClass ticketClass NOT NULL,
   SeatNumber VARCHAR(3) NOT NULL,
-  DietaryRetriction dietaryRestriction NOT NULL DEFAULT 'None',
+  DietaryRestriction dietaryRestriction NOT NULL DEFAULT 'None',
   LuggageNumber INT NOT NULL DEFAULT 1,
   OversizedLuggage INT NOT NULL DEFAULT 0,
   CustomerID INT NOT NULL,
