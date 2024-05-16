@@ -103,6 +103,10 @@ CREATE TABLE Review
   TicketID INT NOT NULL,
   PRIMARY KEY (ReviewID),
   FOREIGN KEY (TicketID) REFERENCES Ticket(TicketID),
+  UNIQUE (TicketID),
   CHECK (RATING>=1 AND RATING<=5),
   CHECK(ReviewID>=1)
 );
+
+
+
