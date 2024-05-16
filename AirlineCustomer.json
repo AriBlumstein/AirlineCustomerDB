@@ -345,7 +345,7 @@
         {
             "type": "Attribute",
             "details": {
-                "name": "DietaryRetriction",
+                "name": "DietaryRestriction",
                 "isDerived": false,
                 "isMultivalued": false,
                 "isOptional": false,
