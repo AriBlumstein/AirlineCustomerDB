@@ -31,10 +31,11 @@ Enums were created when we created the tables to support different value type th
 
 ## Repository Files
 This repository includes the following files to run to set up the database
--[AirlineCustomerCreateTable.sql](../AirlineCustomerCreateTable.sql)- this file contains the script that creates the relations in necessary for the database and should be run first.
 
--[AirlineCustomerDropTabe.sql](../AirlineCustomerCreateTable.sql) - this file contains the script to drop the relations in the proper order, should not be run unless you want to delete the database.
+-[AirlineCustomerCreateTable.sql](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/AirlineCustomerCreateTable.sql)- this file contains the script that creates the relations in necessary for the database and should be run first.
 
--[my_own_sql_data_generator.py](../my_own_sql_data_generator.py) - this will create csv files with random generated data, the files will be called 
+-[AirlineCustomerDropTabe.sql](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/AirlineCustomerCreateTable.sql) - this file contains the script to drop the relations in the proper order, should not be run unless you want to delete the database.
+
+-[my_own_sql_data_generator.py](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/my_own_sql_data_generator.py) - this will create csv files with random generated data, the files will be called 
 “relation_name”.csv. To run this python script, make sure to install pandas,, faker, and tqdm. You should copy the files into the database in this order: Customers.csv, Flight_Info.csv, Flights.csv, Tickets.csv,  Pet_Customers.csv, Indetification.csv, Rewards_Customers.csv, Reviews.csv. This order will prevent the import from failing based on foreign key constraints. 
 
