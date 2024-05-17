@@ -1,6 +1,6 @@
 # AirlineCustomerDB
 
-##Project Proposal
+## Project Proposal
 
 The goal of our database is to support the operations related to airlines and customers.
 The general operations that are supported for customers are:
