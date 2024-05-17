@@ -12,7 +12,7 @@ CREATE TYPE assistance AS ENUM ('None', 'Wheelchair', 'Minor');
 CREATE TABLE Customer
 (
   CustomerID INT NOT NULL,
-  Name VARCHAR(25) NOT NULL,
+  Name VARCHAR(50) NOT NULL,
   PRIMARY KEY (CustomerID),
   CHECK (CustomerID>=1)
 );
@@ -25,7 +25,7 @@ CREATE TABLE Identification
   IssueDate DATE NOT NULL,
   ExpirationDate DATE NOT NULL,
   IDnumber INT NOT NULL,
-  Country VARCHAR(50) NOT NULL,
+  Country VARCHAR(100) NOT NULL,
   CustomerID INT NOT NULL,
   PRIMARY KEY (IdentificationID),
   FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
