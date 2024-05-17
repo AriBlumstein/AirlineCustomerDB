@@ -99,7 +99,7 @@ CREATE TABLE Review
 (
   ReviewID INT NOT NULL,
   Rating INT NOT NULL,
-  Comments VARCHAR(200) NOT NULL,
+  Comments VARCHAR(300) NOT NULL,
   TicketID INT NOT NULL,
   PRIMARY KEY (ReviewID),
   FOREIGN KEY (TicketID) REFERENCES Ticket(TicketID),
