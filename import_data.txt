@@ -1,0 +1,15 @@
+\copy customer from '/Users/binyaminklein/Documents/Machon Lev/Classes/Semester B 5784/Databases Mini Project/AirlineCustomerDB/Customers.csv' delimiter ',' CSV HEADER;
+
+\copy flightinfo from '/Users/binyaminklein/Documents/Machon Lev/Classes/Semester B 5784/Databases Mini Project/AirlineCustomerDB/Flight_Info.csv' delimiter ',' CSV HEADER;
+
+\copy flight from '/Users/binyaminklein/Documents/Machon Lev/Classes/Semester B 5784/Databases Mini Project/AirlineCustomerDB/Flights.csv' delimiter ',' CSV HEADER;
+
+\copy ticket from '/Users/binyaminklein/Documents/Machon Lev/Classes/Semester B 5784/Databases Mini Project/AirlineCustomerDB/Tickets.csv' delimiter ',' CSV HEADER;
+
+\copy petcustomer from '/Users/binyaminklein/Documents/Machon Lev/Classes/Semester B 5784/Databases Mini Project/AirlineCustomerDB/Pet_Customers.csv' delimiter ',' CSV HEADER;
+
+\copy identification from '/Users/binyaminklein/Documents/Machon Lev/Classes/Semester B 5784/Databases Mini Project/AirlineCustomerDB/Identification.csv' delimiter ',' CSV HEADER;
+
+\copy rewardscustomer from '/Users/binyaminklein/Documents/Machon Lev/Classes/Semester B 5784/Databases Mini Project/AirlineCustomerDB/Rewards_Customers.csv' delimiter ',' CSV HEADER;
+
+\copy review from '/Users/binyaminklein/Documents/Machon Lev/Classes/Semester B 5784/Databases Mini Project/AirlineCustomerDB/Reviews.csv' delimiter ',' CSV HEADER;
