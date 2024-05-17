@@ -25,7 +25,7 @@ CREATE TABLE Identification
   IssueDate DATE NOT NULL,
   ExpirationDate DATE NOT NULL,
   IDnumber INT NOT NULL,
-  Country VARCHAR(50) NOT NULL,
+  Country VARCHAR(100) NOT NULL,
   CustomerID INT NOT NULL,
   PRIMARY KEY (IdentificationID),
   FOREIGN KEY (CustomerID) REFERENCES Customer(CustomerID),
