@@ -104,5 +104,5 @@ pg_dump: dumping contents of table "public.petcustomer"\
 pg_dump: dumping contents of table "public.review"
 
 ## Restore Command:
-We ran into an issue when restoring, due to column constraints not necessarily being met when the running commands in different orders, so we "disable triggers" which solved this issue.
+We ran into an issue when restoring, due to foreigh key constraints not necessarily being met when the running commands in different orders, so we enabled the  "disable triggers" option which solved this issue.
 ### pg_restore --host "localhost" --port "5432" --username "postgres" --no-password --dbname "AirlineCustomer" --clean --if-exists --disable-triggers --verbose "path_to_file.sql"
