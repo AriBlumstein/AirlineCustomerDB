@@ -180,7 +180,7 @@
                 "isMultivalued": false,
                 "isOptional": false,
                 "isComposite": false,
-                "isUnique": true,
+                "isUnique": false,
                 "x": 199,
                 "y": 557.1666641235352,
                 "id": 26
