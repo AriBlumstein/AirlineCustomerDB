@@ -110,7 +110,7 @@ pg_dump: dumping contents of table "public.review"
 We ran into an issue when restoring, due to foreigh key constraints not necessarily being met when the running commands in different orders, so we enabled the  "disable triggers" option which solved this issue.
 ### pg_restore --host "localhost" --port "5432" --username "postgres" --dbname "AirlineCustomer" --clean --if-exists --disable-triggers --verbose "path_to_file.sql"
 
-After the command, enter your password for your postgres.
+After the command, enter your password for your postgres user.
 
 ### output
 pg_restore: dropping FK CONSTRAINT ticket ticket_flightid_fkey\
@@ -183,5 +183,5 @@ pg_restore: creating FK CONSTRAINT "public.review review_ticketid_fkey"\
 pg_restore: creating FK CONSTRAINT "public.rewardscustomer rewardscustomer_customerid_fkey"\
 pg_restore: creating FK CONSTRAINT "public.ticket ticket_customerid_fkey"\
 pg_restore: creating FK CONSTRAINT "public.ticket ticket_flightid_fkey"\
-pg_restore: creating ACL "SCHEMA public"\
+pg_restore: creating ACL "SCHEMA public"
 
