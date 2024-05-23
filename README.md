@@ -42,11 +42,14 @@ This repository includes the following files to run to set up the database
 “relation_name”.csv. To run this python script, make sure to install pandas, faker, and tqdm. You should copy the files into the database in this order: Customers.csv, Flight_Info.csv, Flights.csv, Tickets.csv,  Pet_Customers.csv, Indetification.csv, Rewards_Customers.csv, Reviews.csv. This order will prevent the import from failing based on foreign key constraints. NOTE: These files contain headers. A sample set of the copy commands to run in the psql command line is included in the file [import_data.txt](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/import_data.txt). Be sure to update the path to where the csv file is stored.
 
 ## Dump Command:
-We were successfully able to dump the data and restore it on another computer, using PGAdmin. Here is the command: 
-### pg_dump --file "path_to_file.sql" --host "localhost" --port "5432" --username "postgres" --no-password --format=c --large-objects --verbose "AirlineCustomer"
+We were successfully able to dump the data and restore it on another computer, using commandline. Here is the command: 
+### pg_dump --file "path_to_file.sql" --host "localhost" --port "5432" --username "postgres" --format=c --large-objects --verbose "AirlineCustomer"
+
+After the command, enter your password for your postgres user.
+
 ### Output:
-pg_dump: last built-in OID is 16383\\
-pg_dump: reading extensions\\
+pg_dump: last built-in OID is 16383\
+pg_dump: reading extensions\
 pg_dump: identifying extension members\
 pg_dump: reading schemas\
 pg_dump: reading user-defined tables\
@@ -105,4 +108,80 @@ pg_dump: dumping contents of table "public.review"
 
 ## Restore Command:
 We ran into an issue when restoring, due to foreigh key constraints not necessarily being met when the running commands in different orders, so we enabled the  "disable triggers" option which solved this issue.
-### pg_restore --host "localhost" --port "5432" --username "postgres" --no-password --dbname "AirlineCustomer" --clean --if-exists --disable-triggers --verbose "path_to_file.sql"
+### pg_restore --host "localhost" --port "5432" --username "postgres" --dbname "AirlineCustomer" --clean --if-exists --disable-triggers --verbose "path_to_file.sql"
+
+After the command, enter your password for your postgres.
+
+### output
+pg_restore: dropping FK CONSTRAINT ticket ticket_flightid_fkey\
+pg_restore: dropping FK CONSTRAINT ticket ticket_customerid_fkey\
+pg_restore: dropping FK CONSTRAINT rewardscustomer rewardscustomer_customerid_fkey\
+pg_restore: dropping FK CONSTRAINT review review_ticketid_fkey\
+pg_restore: dropping FK CONSTRAINT petcustomer petcustomer_customerid_fkey\
+pg_restore: dropping FK CONSTRAINT identification identification_customerid_fkey\
+pg_restore: dropping FK CONSTRAINT flight flight_flightcode_fkey\
+pg_restore: dropping CONSTRAINT ticket ticket_pkey\
+pg_restore: dropping CONSTRAINT rewardscustomer rewardscustomer_pkey\
+pg_restore: dropping CONSTRAINT rewardscustomer rewardscustomer_memberid_key\
+pg_restore: dropping CONSTRAINT review review_ticketid_key\
+pg_restore: dropping CONSTRAINT review review_pkey\
+pg_restore: dropping CONSTRAINT petcustomer petcustomer_pkey\
+pg_restore: dropping CONSTRAINT identification identification_pkey\
+pg_restore: dropping CONSTRAINT flightinfo flightinfo_pkey\
+pg_restore: dropping CONSTRAINT flight flight_pkey\
+pg_restore: dropping CONSTRAINT customer customer_pkey\
+pg_restore: dropping TABLE ticket\
+pg_restore: dropping TABLE rewardscustomer\
+pg_restore: dropping TABLE review\
+pg_restore: dropping TABLE petcustomer\
+pg_restore: dropping TABLE identification\
+pg_restore: dropping TABLE flightinfo\
+pg_restore: dropping TABLE flight\
+pg_restore: dropping TABLE customer\
+pg_restore: dropping TYPE ticketclass\
+pg_restore: dropping TYPE status\
+pg_restore: dropping TYPE species\
+pg_restore: dropping TYPE idtype\
+pg_restore: dropping TYPE dietaryrestriction\
+pg_restore: dropping TYPE assistance\
+pg_restore: creating TYPE "public.assistance"\
+pg_restore: creating TYPE "public.dietaryrestriction"\
+pg_restore: creating TYPE "public.idtype"\
+pg_restore: creating TYPE "public.species"\
+pg_restore: creating TYPE "public.status"\
+pg_restore: creating TYPE "public.ticketclass"\
+pg_restore: creating TABLE "public.customer"\
+pg_restore: creating TABLE "public.flight"\
+pg_restore: creating TABLE "public.flightinfo"\
+pg_restore: creating TABLE "public.identification"\
+pg_restore: creating TABLE "public.petcustomer"\
+pg_restore: creating TABLE "public.review"\
+pg_restore: creating TABLE "public.rewardscustomer"\
+pg_restore: creating TABLE "public.ticket"\
+pg_restore: processing data for table "public.customer"\
+pg_restore: processing data for table "public.flight"\
+pg_restore: processing data for table "public.flightinfo"\
+pg_restore: processing data for table "public.identification"\
+pg_restore: processing data for table "public.petcustomer"\
+pg_restore: processing data for table "public.review"\
+pg_restore: processing data for table "public.rewardscustomer"\
+pg_restore: processing data for table "public.ticket"\
+pg_restore: creating CONSTRAINT "public.customer customer_pkey"\
+pg_restore: creating CONSTRAINT "public.flight flight_pkey"\
+pg_restore: creating CONSTRAINT "public.flightinfo flightinfo_pkey"\
+pg_restore: creating CONSTRAINT "public.identification identification_pkey"\
+pg_restore: creating CONSTRAINT "public.petcustomer petcustomer_pkey"\
+pg_restore: creating CONSTRAINT "public.review review_pkey"\
+pg_restore: creating CONSTRAINT "public.review review_ticketid_key"\
+pg_restore: creating CONSTRAINT "public.rewardscustomer rewardscustomer_memberid_key"\
+pg_restore: creating CONSTRAINT "public.rewardscustomer rewardscustomer_pkey"\
+pg_restore: creating CONSTRAINT "public.ticket ticket_pkey"\
+pg_restore: creating FK CONSTRAINT "public.flight flight_flightcode_fkey"\
+pg_restore: creating FK CONSTRAINT "public.identification identification_customerid_fkey"\
+pg_restore: creating FK CONSTRAINT "public.petcustomer petcustomer_customerid_fkey"\
+pg_restore: creating FK CONSTRAINT "public.review review_ticketid_fkey"\
+pg_restore: creating FK CONSTRAINT "public.rewardscustomer rewardscustomer_customerid_fkey"\
+pg_restore: creating FK CONSTRAINT "public.ticket ticket_customerid_fkey"\
+pg_restore: creating FK CONSTRAINT "public.ticket ticket_flightid_fkey"\
+pg_restore: creating ACL "SCHEMA public"\
+
