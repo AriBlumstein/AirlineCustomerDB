@@ -47,141 +47,33 @@ We were successfully able to dump the data and restore it on another computer, u
 
 After the command, enter your password for your postgres user.
 
-### Output:
-pg_dump: last built-in OID is 16383\
-pg_dump: reading extensions\
-pg_dump: identifying extension members\
-pg_dump: reading schemas\
-pg_dump: reading user-defined tables\
-pg_dump: reading user-defined functions\
-pg_dump: reading user-defined types\
-pg_dump: reading procedural languages\
-pg_dump: reading user-defined aggregate functions\
-pg_dump: reading user-defined operators\
-pg_dump: reading user-defined access methods\
-pg_dump: reading user-defined operator classes\
-pg_dump: reading user-defined operator families\
-pg_dump: reading user-defined text search parsers\
-pg_dump: reading user-defined text search templates\
-pg_dump: reading user-defined text search dictionaries\
-pg_dump: reading user-defined text search configurations\
-pg_dump: reading user-defined foreign-data wrappers\
-pg_dump: reading user-defined foreign servers\
-pg_dump: reading default privileges\
-pg_dump: reading user-defined collations\
-pg_dump: reading user-defined conversions\
-pg_dump: reading type casts\
-pg_dump: reading transforms\
-pg_dump: reading table inheritance information\
-pg_dump: reading event triggers\
-pg_dump: finding extension tables\
-pg_dump: finding inheritance relationships\
-pg_dump: reading column info for interesting tables\
-pg_dump: finding table default expressions\
-pg_dump: finding table check constraints\
-pg_dump: flagging inherited columns in subtables\
-pg_dump: reading partitioning data\
-pg_dump: reading indexes\
-pg_dump: flagging indexes in partitioned tables\
-pg_dump: reading extended statistics\
-pg_dump: reading constraints\
-pg_dump: reading triggers\
-pg_dump: reading rewrite rules\
-pg_dump: reading policies\
-pg_dump: reading row-level security policies\
-pg_dump: reading publications\
-pg_dump: reading publication membership of tables\
-pg_dump: reading publication membership of schemas\
-pg_dump: reading subscriptions\
-pg_dump: reading large objects\
-pg_dump: reading dependency data\
-pg_dump: saving encoding = UTF8\
-pg_dump: saving standard_conforming_strings = on\
-pg_dump: saving search_path =\
-pg_dump: saving database definition\
-pg_dump: dumping contents of table "public.customer"\
-pg_dump: dumping contents of table "public.flight"\
-pg_dump: dumping contents of table "public.flightinfo"\
-pg_dump: dumping contents of table "public.identification"\
-pg_dump: dumping contents of table "public.petcustomer"\
-pg_dump: dumping contents of table "public.review"
-
 ## Restore Command:
 We ran into an issue when restoring, due to foreigh key constraints not necessarily being met when the running commands in different orders, so we enabled the  "disable triggers" option which solved this issue.
 ### pg_restore --host "localhost" --port "5432" --username "postgres" --dbname "AirlineCustomer" --clean --if-exists --disable-triggers --verbose "path_to_file.sql"
 
 After the command, enter your password for your postgres user.
 
-### output
-pg_restore: dropping FK CONSTRAINT ticket ticket_flightid_fkey\
-pg_restore: dropping FK CONSTRAINT ticket ticket_customerid_fkey\
-pg_restore: dropping FK CONSTRAINT rewardscustomer rewardscustomer_customerid_fkey\
-pg_restore: dropping FK CONSTRAINT review review_ticketid_fkey\
-pg_restore: dropping FK CONSTRAINT petcustomer petcustomer_customerid_fkey\
-pg_restore: dropping FK CONSTRAINT identification identification_customerid_fkey\
-pg_restore: dropping FK CONSTRAINT flight flight_flightcode_fkey\
-pg_restore: dropping CONSTRAINT ticket ticket_pkey\
-pg_restore: dropping CONSTRAINT rewardscustomer rewardscustomer_pkey\
-pg_restore: dropping CONSTRAINT rewardscustomer rewardscustomer_memberid_key\
-pg_restore: dropping CONSTRAINT review review_ticketid_key\
-pg_restore: dropping CONSTRAINT review review_pkey\
-pg_restore: dropping CONSTRAINT petcustomer petcustomer_pkey\
-pg_restore: dropping CONSTRAINT identification identification_pkey\
-pg_restore: dropping CONSTRAINT flightinfo flightinfo_pkey\
-pg_restore: dropping CONSTRAINT flight flight_pkey\
-pg_restore: dropping CONSTRAINT customer customer_pkey\
-pg_restore: dropping TABLE ticket\
-pg_restore: dropping TABLE rewardscustomer\
-pg_restore: dropping TABLE review\
-pg_restore: dropping TABLE petcustomer\
-pg_restore: dropping TABLE identification\
-pg_restore: dropping TABLE flightinfo\
-pg_restore: dropping TABLE flight\
-pg_restore: dropping TABLE customer\
-pg_restore: dropping TYPE ticketclass\
-pg_restore: dropping TYPE status\
-pg_restore: dropping TYPE species\
-pg_restore: dropping TYPE idtype\
-pg_restore: dropping TYPE dietaryrestriction\
-pg_restore: dropping TYPE assistance\
-pg_restore: creating TYPE "public.assistance"\
-pg_restore: creating TYPE "public.dietaryrestriction"\
-pg_restore: creating TYPE "public.idtype"\
-pg_restore: creating TYPE "public.species"\
-pg_restore: creating TYPE "public.status"\
-pg_restore: creating TYPE "public.ticketclass"\
-pg_restore: creating TABLE "public.customer"\
-pg_restore: creating TABLE "public.flight"\
-pg_restore: creating TABLE "public.flightinfo"\
-pg_restore: creating TABLE "public.identification"\
-pg_restore: creating TABLE "public.petcustomer"\
-pg_restore: creating TABLE "public.review"\
-pg_restore: creating TABLE "public.rewardscustomer"\
-pg_restore: creating TABLE "public.ticket"\
-pg_restore: processing data for table "public.customer"\
-pg_restore: processing data for table "public.flight"\
-pg_restore: processing data for table "public.flightinfo"\
-pg_restore: processing data for table "public.identification"\
-pg_restore: processing data for table "public.petcustomer"\
-pg_restore: processing data for table "public.review"\
-pg_restore: processing data for table "public.rewardscustomer"\
-pg_restore: processing data for table "public.ticket"\
-pg_restore: creating CONSTRAINT "public.customer customer_pkey"\
-pg_restore: creating CONSTRAINT "public.flight flight_pkey"\
-pg_restore: creating CONSTRAINT "public.flightinfo flightinfo_pkey"\
-pg_restore: creating CONSTRAINT "public.identification identification_pkey"\
-pg_restore: creating CONSTRAINT "public.petcustomer petcustomer_pkey"\
-pg_restore: creating CONSTRAINT "public.review review_pkey"\
-pg_restore: creating CONSTRAINT "public.review review_ticketid_key"\
-pg_restore: creating CONSTRAINT "public.rewardscustomer rewardscustomer_memberid_key"\
-pg_restore: creating CONSTRAINT "public.rewardscustomer rewardscustomer_pkey"\
-pg_restore: creating CONSTRAINT "public.ticket ticket_pkey"\
-pg_restore: creating FK CONSTRAINT "public.flight flight_flightcode_fkey"\
-pg_restore: creating FK CONSTRAINT "public.identification identification_customerid_fkey"\
-pg_restore: creating FK CONSTRAINT "public.petcustomer petcustomer_customerid_fkey"\
-pg_restore: creating FK CONSTRAINT "public.review review_ticketid_fkey"\
-pg_restore: creating FK CONSTRAINT "public.rewardscustomer rewardscustomer_customerid_fkey"\
-pg_restore: creating FK CONSTRAINT "public.ticket ticket_customerid_fkey"\
-pg_restore: creating FK CONSTRAINT "public.ticket ticket_flightid_fkey"\
-pg_restore: creating ACL "SCHEMA public"
+### Output Log for Dump and Restore
+[backupPSQL.log](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/backupPSQL.log)
 
+## Queries
+### Regular Queries in Plain English
+SELECT Queries:
+1. Retrieve a list of all flights including their departure and arrival locations, and scheduled times.
+2. Find the total number of bookings made by each customer, including the customer's name.
+3. Get the average rating from each rewards customers
+4. List all customers who have traveled more than five times, including their total number of flights and the most frequent destination.
+
+UPDATE Queries:
+1. Change the arrival location of all flights arriving at JFK to EWR.
+2. Reschedule all flights that were scheduled to depart on January 1st, 2024 to the next day.
+
+DELETE Queries:
+1. Delete all flights that have been completed more than one year ago.
+2. Delete customer records who have not made any bookings in the past three years.
+
+### Parameterized Queries:
+1. Get the total number of flights to a specific destination within a specifc time range.
+2. Update the seat of a specific customer on a specific flights
+3. Change the departure time of all flights with a certain flight code to a new time.
+4. Remove all bookings associated with a specific flight that has been canceled.
