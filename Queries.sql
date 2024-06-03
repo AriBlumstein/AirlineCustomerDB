@@ -1,24 +1,23 @@
 -- Retrieve a list of all flights including their departure and arrival locations, and scheduled times.
-SELECT A.FlightCode, FlightID, Origin, Destination, DepartureTime, DepartureDate
-FROM FlightInfo A INNER JOIN Flight B ON (A.FlightCode=B.FlightCode)
-ORDER BY A.FlightCode ASC, DepartureDate ASC;
+SELECT fi.FlightCode, FlightID, Origin, Destination, DepartureTime, DepartureDate
+FROM FlightInfo fi INNER JOIN Flight f ON (fi.FlightCode=f.FlightCode)
+ORDER BY fi.FlightCode ASC, DepartureDate ASC;
 
-SELECT A.CustomerID, A.Name, Count(B.FlightID) as NumFlights
-FROM Customer A INNER JOIN Ticket B ON (A.CustomerID=B.CustomerID)
-GROUP BY A.CustomerID
-ORDER BY A.CustomerID ASC;
+SELECT c.CustomerID, c.Name, Count(t.FlightID) as NumFlights
+FROM Customer c INNER JOIN Ticket t  ON (c.CustomerID=t.CustomerID)
+GROUP BY c.CustomerID
+ORDER BY c.CustomerID ASC;
 
 
 WITH RewardsTickets as (
-	SELECT TicketID, B.CustomerID 
-	FROM Ticket A INNER JOIN Customer B on (A.CustomerID=B.CustomerID)
-	WHERE B.CustomerID in (SELECT CustomerID
-	                  	FROM RewardsCustomer)
+	SELECT TicketID, rc.CustomerID 
+	FROM Ticket t INNER JOIN RewardsCustomer rc on (t.CustomerID=rc.CustomerID)
 	)
 SELECT CustomerID, ROUND(AVG(Rating),1) AS AvgRating
 FROM RewardsTickets INNER JOIN Review ON (RewardsTickets.TicketID=Review.TicketID)
 GROUP BY CustomerID
 ORDER BY CustomerID ASC;
+
 
 SELECT 
     c.CustomerID, 
