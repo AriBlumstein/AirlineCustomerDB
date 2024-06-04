@@ -56,8 +56,7 @@ PREPARE Flights_To_Destination (text, date, date) as(
 	GROUP BY Destination
 	);
 
-execute Flights_To_Destination('CDG', '2023-7-30', '2024-7-31');
-
+execute Flights_To_Destination('EGY', '2023-7-30', '2024-7-31'); 
 
 CREATE OR REPLACE FUNCTION update_flight_info(flight_code TEXT, new_departure_time TIME) RETURNS VOID AS $$
 BEGIN
@@ -67,10 +66,11 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+
 PREPARE Update_Flights(text, time) AS
     SELECT update_flight_info($1, $2);
 
-Execute Update_Flights('an7575', '12:00:00')
+Execute Update_Flights('an7575', '9:00:00')
 
 
 
