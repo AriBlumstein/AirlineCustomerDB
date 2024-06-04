@@ -47,7 +47,7 @@ ORDER BY cf.total_flights DESC;
 
 --Parameterized queries
 PREPARE Flights_To_Destination (text, date, date) as(
-	SELECT $1 as Destination, $2 as start_date, $3 as end_date,  as total_flights
+	SELECT $1 as Destination, $2 as start_date, $3 as end_date, COUNT(*)  as total_flights
 	FROM Flight
 	WHERE DepartureDate BETWEEN $2 and $3
 	AND FlightCode in   (Select FlightCode 
@@ -56,7 +56,7 @@ PREPARE Flights_To_Destination (text, date, date) as(
 	GROUP BY Destination
 	);
 
-execute Flights_To_Destination('CDG', '2023-7-30', '2024-7-31');*/
+execute Flights_To_Destination('CDG', '2023-7-30', '2024-7-31');
 
 
 CREATE OR REPLACE FUNCTION update_flight_info(flight_code TEXT, new_departure_time TIME) RETURNS VOID AS $$
