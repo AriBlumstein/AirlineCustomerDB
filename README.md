@@ -65,15 +65,15 @@ SELECT Queries:
 4. List all customers who have traveled more than five times, including their total number of flights and the most frequent destination.
 
 UPDATE Queries:
-1. Change the arrival location of all flights arriving at JFK to EWR.
-2. Reschedule all flights that were scheduled to depart on January 1st, 2024 to the next day.
+1. Reschedule all flights with the flight code LH594 to 11:15:00
+2. Reschedule all flights that were scheduled to depart on July 22nd, 2024 to the next day.
 
 DELETE Queries:
-1. Delete all flights that have been completed more than one year ago.
-2. Delete customer records who have not made any bookings in the past three years.
+1. Delete all flights that were completed before June 4th, 2024.
+2. Delete customer records who have not flown in the past month and has no future flights.
 
 ### Parameterized Queries:
 1. Get the total number of flights to a specific destination within a specifc time range.
-2. Update the seat of a specific customer on a specific flights
-3. Change the departure time of all flights with a certain flight code to a new time.
+2. 
+3. 
 4. Remove all bookings associated with a specific flight that has been canceled.

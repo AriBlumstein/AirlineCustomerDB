@@ -42,40 +42,58 @@ FROM CustomerFlights cf
 JOIN TicketDetails td ON cf.CustomerID = td.CustomerID AND td.rn = 1
 ORDER BY cf.total_flights DESC;
 
+-- Reschedule all flights with the flight code LH594 to 11:15:00
+UPDATE FlightInfo
+SET DepartureTime = '11:15:00'
+WHERE FlightCode = 'LH594';
 
+-- Reschedule all flights that were scheduled to depart on July 22nd, 2024 to the next day.
+UPDATE Flight
+SET DepartureDate = '2024-7-23'
+WHERE DepartureDate = '2024-7-22';
 
+-- Delete all flights that were completed before June 4th, 2024.
+DELETE FROM Review 
+WHERE TicketID IN (
+	SELECT TicketID FROM Ticket WHERE FlightID IN (
+		SELECT FlightID FROM Flight WHERE DepartureDate < '2024-6-4'
+	)
+);
+DELETE FROM Ticket
+WHERE FlightID IN (
+	SELECT FlightID FROM Flight WHERE DepartureDate < '2024-6-4'
+);
+DELETE FROM Flight
+WHERE DepartureDate < '2024-6-4';
+
+-- Delete customer records who have not flown in the past month and has no future flights.
+-- Deal with foreign contraints: don't delete rewards members and identification. We need to delete the identification and petCustomer
+DELETE FROM Customer
+WHERE CustomerID NOT IN (
+  SELECT CustomerID
+  FROM Ticket INNER JOIN Flight ON (Ticket.FlightID = Flight.FlightID)
+  WHERE (Flight.DepartureDate > current_date - interval '1 month') AND Flight.DepartureDate <= current_date
+  OR Flight.DepartureDate > current_date
+);
 
 --Parameterized queries
-PREPARE Flights_To_Destination (text, date, date) as(
-	SELECT $1 as Destination, $2 as start_date, $3 as end_date, COUNT(*)  as total_flights
-	FROM Flight
-	WHERE DepartureDate BETWEEN $2 and $3
-	AND FlightCode in   (Select FlightCode 
-	                     FROM FlightInfo
-	                     WHERE Destination=$1)
-	GROUP BY Destination
-	);
 
-execute Flights_To_Destination('EGY', '2023-7-30', '2024-7-31'); 
-
-CREATE OR REPLACE FUNCTION update_flight_info(flight_code TEXT, new_departure_time TIME) RETURNS VOID AS $$
-BEGIN
-    UPDATE FlightInfo
-    SET DepartureTime = new_departure_time
-    WHERE FlightCode = flight_code;
-END;
-$$ LANGUAGE plpgsql;
-
-
-PREPARE Update_Flights(text, time) AS
-    SELECT update_flight_info($1, $2);
-
-Execute Update_Flights('an7575', '9:00:00')
-
-
-
-
-
+--Get the total number of flights to a specific destination within a specifc time range.
+/*PREPARE Flights_To_Destination (text, date, date) AS
+(
+    SELECT $1 AS Destination, $2 AS start_date, $3 AS end_date, 
+           COALESCE(COUNT(f.FlightCode), 0) AS total_flights
+    FROM (SELECT $1 AS Destination) AS d
+    LEFT JOIN Flight f ON f.DepartureDate BETWEEN $2 AND $3
+                       AND f.FlightCode IN (
+                           SELECT FlightCode 
+                           FROM FlightInfo 
+                           WHERE Destination = $1
+                       )
+    GROUP BY d.Destination
+);
+*/
+EXECUTE Flights_To_Destination('EGY', '2023-07-30', '2024-07-31');
 
 
 
