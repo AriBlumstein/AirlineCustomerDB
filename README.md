@@ -43,18 +43,33 @@ This repository includes the following files to run to set up the database
 
 ## Dump Command:
 We were successfully able to dump the data and restore it on another computer, using commandline. Here is the command: 
-### pg_dump --file "path_to_file.sql" --host "localhost" --port "5432" --username "postgres" --format=c --large-objects --verbose "AirlineCustomer"
+### pg_dump --file "backupSQL.sql" --host "localhost" --port "5432" --username "postgres" --format=c --large-objects --verbose "AirlineCustomer"
 
 After the command, enter your password for your postgres user.
 
 ## Restore Command:
 We ran into an issue when restoring, due to foreigh key constraints not necessarily being met when the running commands in different orders, so we enabled the  "disable triggers" option which solved this issue.
-### pg_restore --host "localhost" --port "5432" --username "postgres" --dbname "AirlineCustomer" --clean --if-exists --disable-triggers --verbose "path_to_file.sql"
+### pg_restore --host "localhost" --port "5432" --username "postgres" --dbname "AirlineCustomer" --clean --if-exists --disable-triggers --verbose "backupSQL.sql"
 
 After the command, enter your password for your postgres user.
 
 ### Output Log for Dump and Restore
 [backupPSQL.log](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/backupPSQL.log)
+
+## Dump Command with Drop, Create and Insert:
+We were successfully able to dump the data and restore it on another computer, using commandline. Here is the command:
+### pg_dump --file "backupSQLinserts.sql" --host "localhost" --port "5432" --username "postgres" --format=c --large-objects --inserts --rows-per-insert "1000" --create --clean --if-exists --verbose "AirlineCustomer"
+
+After the command, enter your password for your postgres user.
+
+## Restore Command:
+We ran into an issue when restoring, due to foreigh key constraints not necessarily being met when the running commands in different orders, so we enabled the  "disable triggers" option which solved this issue.
+### pg_restore --host "localhost" --port "5432" --username "postgres" --dbname "AirlineCustomer" --clean --if-exists --disable-triggers --verbose "backupSQLinserts.sql
+
+
+### Output Log for Dump and Restore
+[backupPSQLinserts.log](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/backupPSQLinserts.log)
+
 
 ## Queries
 ### Regular Queries in Plain English
