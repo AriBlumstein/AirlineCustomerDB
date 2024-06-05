@@ -89,6 +89,6 @@ DELETE Queries:
 
 ### Parameterized Queries:
 1. Get the total number of flights to a specific destination within a specifc time range.
-2. 
-3. 
+2. Get The rewards customers on a specific flight with a minimum status.
+3. Update the seat of a specific customer on a specific flight.
 4. Remove all bookings associated with a specific flight that has been canceled.
