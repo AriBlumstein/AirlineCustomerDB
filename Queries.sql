@@ -1,5 +1,3 @@
---Regular quieries
-
 -- Retrieve a list of all flights including their departure and arrival locations, and scheduled times.
 SELECT fi.FlightCode, FlightID, Origin, Destination, DepartureTime, DepartureDate
 FROM FlightInfo fi INNER JOIN Flight f ON (fi.FlightCode=f.FlightCode)
@@ -66,36 +64,30 @@ WHERE FlightID IN (
 DELETE FROM Flight
 WHERE DepartureDate < '2024-6-4';
 
+
 -- Delete customer records who have not flown in the past month and has no future flights.
--- Deal with foreign contraints: don't delete rewards members and identification. We need to delete the identification and petCustomer
-DELETE FROM Customer
-WHERE CustomerID NOT IN (
-  SELECT CustomerID
+CREATE TEMPORARY TABLE FlyingCustomers as(
+  SELECT CustomerID 
   FROM Ticket INNER JOIN Flight ON (Ticket.FlightID = Flight.FlightID)
-  WHERE (Flight.DepartureDate > current_date - interval '1 month') AND Flight.DepartureDate <= current_date
-  OR Flight.DepartureDate > current_date
+  WHERE (Flight.DepartureDate > current_date - interval '1 month')
 );
+	
+DELETE FROM PetCustomer
+WHERE CustomerID NOT IN (SELECT CustomerID FROM FlyingCustomers)
+AND CustomerID NOT IN (SELECT CustomerID 
+	                	FROM RewardsCustomer);
 
---Parameterized queries
+DELETE FROM Identification 
+WHERE CustomerID NOT IN (SELECT CustomerID FROM FlyingCustomers)
+AND CustomerID NOT IN (SELECT CustomerID 
+	                	FROM RewardsCustomer);
 
---Get the total number of flights to a specific destination within a specifc time range.
-/*PREPARE Flights_To_Destination (text, date, date) AS
-(
-    SELECT $1 AS Destination, $2 AS start_date, $3 AS end_date, 
-           COALESCE(COUNT(f.FlightCode), 0) AS total_flights
-    FROM (SELECT $1 AS Destination) AS d
-    LEFT JOIN Flight f ON f.DepartureDate BETWEEN $2 AND $3
-                       AND f.FlightCode IN (
-                           SELECT FlightCode 
-                           FROM FlightInfo 
-                           WHERE Destination = $1
-                       )
-    GROUP BY d.Destination
-);
-*/
-EXECUTE Flights_To_Destination('EGY', '2023-07-30', '2024-07-31');
+DELETE FROM Customer
+WHERE CustomerID NOT IN (SELECT CustomerID FROM FlyingCustomers)
+AND CustomerID NOT IN (SELECT CustomerID 
+	                	FROM RewardsCustomer);
 
-
+DROP TABLE FlyingCustomers;
 
 
 
