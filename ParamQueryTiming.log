@@ -1,0 +1,69 @@
+Query 1 - Get the total number of flights to a specific destination within a specifc time range.
+
+
+"QUERY PLAN"
+"GroupAggregate  (cost=2.26..45.18 rows=1 width=80) (actual time=0.402..0.404 rows=1 loops=1)"
+"  ->  Nested Loop Left Join  (cost=2.26..45.15 rows=7 width=6) (actual time=0.079..0.396 rows=7 loops=1)"
+"        ->  Result  (cost=0.00..0.01 rows=1 width=0) (actual time=0.001..0.001 rows=1 loops=1)"
+"        ->  Hash Join  (cost=2.26..45.07 rows=7 width=6) (actual time=0.077..0.393 rows=7 loops=1)"
+"              Hash Cond: ((f.flightcode)::text = (flightinfo.flightcode)::text)"
+"              ->  Seq Scan on flight f  (cost=0.00..41.00 rows=659 width=6) (actual time=0.009..0.276 rows=661 loops=1)"
+"                    Filter: ((departuredate >= '2023-07-30'::date) AND (departuredate <= '2024-07-31'::date))"
+"                    Rows Removed by Filter: 1339"
+"              ->  Hash  (cost=2.25..2.25 rows=1 width=6) (actual time=0.026..0.027 rows=1 loops=1)"
+"                    Buckets: 1024  Batches: 1  Memory Usage: 9kB"
+"                    ->  Seq Scan on flightinfo  (cost=0.00..2.25 rows=1 width=6) (actual time=0.008..0.023 rows=1 loops=1)"
+"                          Filter: ((destination)::text = 'EGY'::text)"
+"                          Rows Removed by Filter: 99"
+"Planning Time: 0.870 ms"
+"Execution Time: 0.735 ms"
+
+
+Query 2 - Get The rewards customers on a specific flight with a minimum status.
+
+"QUERY PLAN"
+"Hash Join  (cost=4174.48..4587.64 rows=31 width=20) (actual time=27.281..28.756 rows=18 loops=1)"
+"  Hash Cond: (rewardscustomer.customerid = ticket.customerid)"
+"  ->  Seq Scan on rewardscustomer  (cost=0.00..378.00 rows=13264 width=20) (actual time=0.016..1.077 rows=13264 loops=1)"
+"        Filter: (status >= 'Silver'::status)"
+"        Rows Removed by Filter: 6736"
+"  ->  Hash  (cost=4173.24..4173.24 rows=99 width=4) (actual time=27.230..27.231 rows=94 loops=1)"
+"        Buckets: 1024  Batches: 1  Memory Usage: 12kB"
+"        ->  HashAggregate  (cost=4172.25..4173.24 rows=99 width=4) (actual time=27.219..27.223 rows=94 loops=1)"
+"              Group Key: ticket.customerid"
+"              Batches: 1  Memory Usage: 24kB"
+"              ->  Seq Scan on ticket  (cost=0.00..4172.00 rows=99 width=4) (actual time=0.011..27.162 rows=95 loops=1)"
+"                    Filter: (flightid = 200399)"
+"                    Rows Removed by Filter: 199905"
+"Planning Time: 1.465 ms"
+"Execution Time: 28.801 ms"
+
+
+Query 3 - Update the seat of a specific customer on a specific flight.
+
+"QUERY PLAN"
+"Update on ticket  (cost=0.42..8.44 rows=0 width=0) (actual time=0.687..0.688 rows=0 loops=1)"
+"  ->  Index Scan using ticket_pkey on ticket  (cost=0.42..8.44 rows=1 width=22) (actual time=0.126..0.128 rows=1 loops=1)"
+"        Index Cond: (ticketid = 100003)"
+"Planning Time: 0.160 ms"
+"Execution Time: 0.739 ms"
+
+
+Query 4 - Remove all bookings associated with a specific flight that has been canceled.
+
+"QUERY PLAN"
+"Delete on review  (cost=4175.22..4286.19 rows=0 width=0) (actual time=26.785..26.786 rows=0 loops=1)"
+"  CTE deleted_tickets"
+"    ->  Delete on ticket  (cost=0.00..4172.00 rows=99 width=6) (actual time=0.052..26.299 rows=98 loops=1)"
+"          ->  Seq Scan on ticket  (cost=0.00..4172.00 rows=99 width=6) (actual time=0.032..24.840 rows=98 loops=1)"
+"                Filter: (flightid = 200127)"
+"                Rows Removed by Filter: 199902"
+"  ->  Hash Semi Join  (cost=3.22..114.19 rows=99 width=34) (actual time=26.415..26.674 rows=5 loops=1)"
+"        Hash Cond: (review.ticketid = deleted_tickets.ticketid)"
+"        ->  Seq Scan on review  (cost=0.00..102.00 rows=3000 width=10) (actual time=0.011..0.191 rows=3000 loops=1)"
+"        ->  Hash  (cost=1.98..1.98 rows=99 width=32) (actual time=26.394..26.394 rows=98 loops=1)"
+"              Buckets: 1024  Batches: 1  Memory Usage: 15kB"
+"              ->  CTE Scan on deleted_tickets  (cost=0.00..1.98 rows=99 width=32) (actual time=0.060..26.365 rows=98 loops=1)"
+"Planning Time: 0.834 ms"
+"Trigger for constraint review_ticketid_fkey on ticket: time=0.982 calls=98"
+"Execution Time: 27.853 ms"

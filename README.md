@@ -88,6 +88,7 @@ DELETE Queries:
 2. Delete customer records who have not flown in the past month and has no future flights.
 
 ### The above queries are written in SQL here: [Queries](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/Queries.sql)
+### The analysis for these queries is here: [QueryTiming](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/QueryTiming.log)
 
 ### Parameterized Queries:
 1. Get the total number of flights to a specific destination within a specifc time range.
@@ -96,4 +97,4 @@ DELETE Queries:
 4. Remove all bookings associated with a specific flight that has been canceled.
 
 ### The above queries are written in SQL here: [ParamQueries](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/ParamQueries.sql)
-
+### The analysis for these queries is here: [QueryTiming](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/QueryTiming.log)
