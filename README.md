@@ -87,8 +87,13 @@ DELETE Queries:
 1. Delete all flights that were completed before June 4th, 2024.
 2. Delete customer records who have not flown in the past month and has no future flights.
 
+### The above queries are written in SQL here: [Queries](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/Queries.sql)
+
 ### Parameterized Queries:
 1. Get the total number of flights to a specific destination within a specifc time range.
 2. Get The rewards customers on a specific flight with a minimum status.
 3. Update the seat of a specific customer on a specific flight.
 4. Remove all bookings associated with a specific flight that has been canceled.
+
+### The above queries are written in SQL here: [ParamQueries](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/ParamQueries.sql)
+
