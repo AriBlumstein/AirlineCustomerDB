@@ -40,6 +40,7 @@ FROM CustomerFlights cf
 JOIN TicketDetails td ON cf.CustomerID = td.CustomerID AND td.rn = 1
 ORDER BY cf.total_flights DESC;
 
+
 -- Reschedule all flights with the flight code LH594 to 11:15:00
 UPDATE FlightInfo
 SET DepartureTime = '11:15:00'
@@ -51,43 +52,52 @@ SET DepartureDate = '2024-7-23'
 WHERE DepartureDate = '2024-7-22';
 
 -- Delete all flights that were completed before June 4th, 2024.
-DELETE FROM Review 
-WHERE TicketID IN (
-	SELECT TicketID FROM Ticket WHERE FlightID IN (
+
+BEGIN;
+	DELETE FROM Review 
+	WHERE TicketID IN (
+		SELECT TicketID FROM Ticket WHERE FlightID IN (
+			SELECT FlightID FROM Flight WHERE DepartureDate < '2024-6-4'
+		)
+	);
+	DELETE FROM Ticket
+	WHERE FlightID IN (
 		SELECT FlightID FROM Flight WHERE DepartureDate < '2024-6-4'
-	)
-);
-DELETE FROM Ticket
-WHERE FlightID IN (
-	SELECT FlightID FROM Flight WHERE DepartureDate < '2024-6-4'
-);
-DELETE FROM Flight
-WHERE DepartureDate < '2024-6-4';
+	);
+	DELETE FROM Flight
+	WHERE DepartureDate < '2024-6-4';
+
+COMMIT;
+
 
 
 -- Delete customer records who have not flown in the past month and has no future flights.
-CREATE TEMPORARY TABLE FlyingCustomers as(
-  SELECT CustomerID 
-  FROM Ticket INNER JOIN Flight ON (Ticket.FlightID = Flight.FlightID)
-  WHERE (Flight.DepartureDate > current_date - interval '1 month')
-);
+BEGIN;
+
+	CREATE TEMPORARY TABLE FlyingCustomers as(
+  		SELECT CustomerID 
+  		FROM Ticket INNER JOIN Flight ON (Ticket.FlightID = Flight.FlightID)
+  		WHERE (Flight.DepartureDate > current_date - interval '1 month')
+		);
 	
-DELETE FROM PetCustomer
-WHERE CustomerID NOT IN (SELECT CustomerID FROM FlyingCustomers)
-AND CustomerID NOT IN (SELECT CustomerID 
-	                	FROM RewardsCustomer);
+	DELETE FROM PetCustomer
+	WHERE CustomerID NOT IN (SELECT CustomerID FROM FlyingCustomers)
+	AND CustomerID NOT IN (SELECT CustomerID 
+	                		FROM RewardsCustomer);
 
-DELETE FROM Identification 
-WHERE CustomerID NOT IN (SELECT CustomerID FROM FlyingCustomers)
-AND CustomerID NOT IN (SELECT CustomerID 
-	                	FROM RewardsCustomer);
+	DELETE FROM Identification 
+	WHERE CustomerID NOT IN (SELECT CustomerID FROM FlyingCustomers)
+	AND CustomerID NOT IN (SELECT CustomerID 
+	                		FROM RewardsCustomer);
 
-DELETE FROM Customer
-WHERE CustomerID NOT IN (SELECT CustomerID FROM FlyingCustomers)
-AND CustomerID NOT IN (SELECT CustomerID 
-	                	FROM RewardsCustomer);
+	DELETE FROM Customer
+	WHERE CustomerID NOT IN (SELECT CustomerID FROM FlyingCustomers)
+	AND CustomerID NOT IN (SELECT CustomerID 
+	                		FROM RewardsCustomer);
 
-DROP TABLE FlyingCustomers;
+	DROP TABLE FlyingCustomers;
+
+COMMIT;
 
 
 
