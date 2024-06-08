@@ -96,5 +96,24 @@ DELETE Queries:
 3. Update the seat of a specific customer on a specific flight.
 4. Remove all bookings associated with a specific flight that has been canceled.
 
-### The above queries are written in SQL here: [ParamQueries](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/ParamQueries.sql)
-### The analysis for these queries is here: [QueryTiming](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/QueryTiming.log)
+### The above queries are written in SQL here: [ParamsQueries](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/ParamsQueries.sql)
+### The analysis for these queries is here: [ParamQueryTiming](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/ParamQueryTiming.log)
+
+
+## [Indexes](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/indexes.sql)
+
+### We created index to speed up query processing. We created the following indexes:
+### Ticket Table
+- FlightID
+- CustomerID
+- CustomerID, FLightID
+### Flight Table
+- FlightCode
+- DepartureDate
+### Review Table
+- TicketID
+### Identification Table
+- CustomerID
+
+### The logs for analysis and timing of regular queries are [here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/QueryTimingIndexes.log) and for parameterized queries are [here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/ParamQueryTimingIndexes.log)
+
