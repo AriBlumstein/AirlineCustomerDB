@@ -16,17 +16,25 @@ fake = Faker()
 
 """Make Enums"""
 
-Species=['Dog', 'Cat', 'Other']
+Species = ["Dog", "Cat", "Other"]
 
-Status=['None', 'Silver', 'Gold']
+Status = ["None", "Silver", "Gold"]
 
-TicketClass=['Economy', 'Premium', 'Business', 'FirstClass']
+TicketClass = ["Economy", "Premium", "Business", "FirstClass"]
 
-IDType=['ID', "DriversLicence", 'Passport']
+IDType = ["ID", "DriversLicence", "Passport"]
 
-DietaryRestriction=['None','Kosher','Vegan','GlutenFree','DairyFree','Diabetes','NutFree']
+DietaryRestriction = [
+    "None",
+    "Kosher",
+    "Vegan",
+    "GlutenFree",
+    "DairyFree",
+    "Diabetes",
+    "NutFree",
+]
 
-Assistance =['None', 'Wheelchair', 'Minor']
+Assistance = ["None", "Wheelchair", "Minor"]
 
 """Create Counters for Unique items"""
 
@@ -51,128 +59,165 @@ flightCodeList = []
 
 """Create Data Frame for each table with random values"""
 
+
 def create_customer_dataframe(num_records):
     global idIncrementingCounter1
     global customerIDList
     data = pd.DataFrame()
-    for i in tqdm(range(num_records), desc='Creating Customer DataFrame'):
-        data.loc[i, 'customerid'] = idIncrementingCounter1
+    for i in tqdm(range(num_records), desc="Creating Customer DataFrame"):
+        data.loc[i, "customerid"] = idIncrementingCounter1
         customerIDList += [idIncrementingCounter1]
         idIncrementingCounter1 += 1
-        data.loc[i, 'name'] = fake.name()
-    data['customerid'] = data['customerid'].astype(int)
+        data.loc[i, "name"] = fake.name()
+    data["customerid"] = data["customerid"].astype(int)
     return data
+
 
 def create_flight_info_dataframe(num_records):
     global flightCodeList
     data = pd.DataFrame()
-    for i in tqdm(range(num_records), desc='Creating FlightInfo DataFrame'):
-        data.loc[i, 'flightcode'] = fake.random_letter() + fake.random_letter() + str(fake.random_number(digits=4))
-        flightCodeList += [data.loc[i, 'flightcode']]
-        data.loc[i, 'destination'] = fake.country_code(representation='alpha-3')
-        data.loc[i, 'origin'] = fake.country_code(representation='alpha-3')
-        data.loc[i, 'departuretime'] = fake.time()
+    for i in tqdm(range(num_records), desc="Creating FlightInfo DataFrame"):
+        flightCode = (
+            fake.random_letter()
+            + fake.random_letter()
+            + str(fake.random_number(digits=4))
+        )
+        while flightCode in flightCodeList:
+            flightCode = (
+                fake.random_letter()
+                + fake.random_letter()
+                + str(fake.random_number(digits=4))
+            )
+        data.loc[i, "flightcode"] = flightCode
+        flightCodeList += flightCode
+        data.loc[i, "destination"] = fake.country_code(representation="alpha-3")
+        data.loc[i, "origin"] = fake.country_code(representation="alpha-3")
+        data.loc[i, "departuretime"] = fake.time()
     return data
+
 
 def create_flight_dataframe(num_records):
     global flightIDCounter1
     global flightIDMax
     global flightCodeList
     data = pd.DataFrame()
-    for i in tqdm(range(num_records), desc='Creating Flight DataFrame'):
-        data.loc[i, 'departuredate'] = fake.date_this_year(before_today=False, after_today=True)
-        data.loc[i, 'flightid'] = flightIDCounter1
+    for i in tqdm(range(num_records), desc="Creating Flight DataFrame"):
+        data.loc[i, "departuredate"] = fake.date_this_year(
+            before_today=False, after_today=True
+        )
+        data.loc[i, "flightid"] = flightIDCounter1
         flightIDCounter1 += 1
-        data.loc[i, 'flightcode'] = random.choice(flightCodeList)
-    data['flightid'] = data['flightid'].astype(int)
-    flightIDMax = data.loc[num_records-1, 'flightid']
+        data.loc[i, "flightcode"] = random.choice(flightCodeList)
+    data["flightid"] = data["flightid"].astype(int)
+    flightIDMax = data.loc[num_records - 1, "flightid"]
     return data
 
+
 def create_ticket_dataframe(num_records):
+    seats = {}
     global ticketIDIncrementer1
     global flightIDMin
     data = pd.DataFrame()
-    for i in tqdm(range(num_records), desc='Creating Ticket DataFrame'):
-        data.loc[i, 'ticketid'] = ticketIDIncrementer1
+    for i in tqdm(range(num_records), desc="Creating Ticket DataFrame"):
+        data.loc[i, "ticketid"] = ticketIDIncrementer1
         ticketIDIncrementer1 += 1
-        data.loc[i, 'ticketclass'] = random.choice(list(TicketClass))
-        data.loc[i, 'seatnumber'] = fake.random_letter() + str(fake.random_number(digits=2))
-        data.loc[i, 'dietaryrestriction'] = random.choice(list(DietaryRestriction))
-        data.loc[i, 'luggagenumber'] = fake.random_number(digits=2)
-        data.loc[i, 'oversizedluggage'] = fake.random_number(digits=1)
-        data.loc[i, 'customerid'] = random.choice(customerIDList)
-        data.loc[i, 'flightid'] = random.randint(flightIDMin, flightIDMax)
-        data.loc[i, 'zone'] = random.choice(['A', 'B', 'C', 'D'])
-        data.loc[i, 'assistance'] = fake.random.choice(list(Assistance))
-    data['ticketid'] = data['ticketid'].astype(int)
-    data['luggagenumber'] = data['luggagenumber'].astype(int)
-    data['oversizedluggage'] = data['oversizedluggage'].astype(int)
-    data['customerid'] = data['customerid'].astype(int)
-    data['flightid'] = data['flightid'].astype(int)
+        data.loc[i, "ticketclass"] = random.choice(list(TicketClass))
+        data.loc[i, "dietaryrestriction"] = random.choice(list(DietaryRestriction))
+        data.loc[i, "luggagenumber"] = fake.random_number(digits=2)
+        data.loc[i, "oversizedluggage"] = fake.random_number(digits=1)
+        data.loc[i, "customerid"] = random.choice(customerIDList)
+        data.loc[i, "flightid"] = random.randint(flightIDMin, flightIDMax)
+        seatNumber = str(fake.random_number(digits=2)) + random.choice(
+            ["A", "B", "C", "D", "E", "F"]
+        )
+        while seatNumber in seats.get(data.loc[i, "flightid"], []):
+            seatNumber = str(fake.random_number(digits=2)) + random.choice(
+                ["A", "B", "C", "D", "E", "F"]
+            )
+        data.loc[i, "seatnumber"] = seatNumber
+        data.loc[i, "zone"] = random.choice(["A", "B", "C", "D"])
+        data.loc[i, "assistance"] = fake.random.choice(list(Assistance))
+        seats[data.loc[i, "flightid"]] = seatNumber
+    data["ticketid"] = data["ticketid"].astype(int)
+    data["luggagenumber"] = data["luggagenumber"].astype(int)
+    data["oversizedluggage"] = data["oversizedluggage"].astype(int)
+    data["customerid"] = data["customerid"].astype(int)
+    data["flightid"] = data["flightid"].astype(int)
     return data
+
 
 def create_pet_customer_dataframe(num_records):
     global idIncrementingCounter3
     global customerIDList
     data = pd.DataFrame()
-    for i in tqdm(range(num_records), desc='Creating PetCustomer DataFrame'):
-        data.loc[i, 'species'] = random.choice(list(Species))
-        data.loc[i, 'customerid'] = random.choice(customerIDList)
-        customerIDList.remove(data.loc[i, 'customerid'])
-    data['customerid'] = data['customerid'].astype(int)
+    for i in tqdm(range(num_records), desc="Creating PetCustomer DataFrame"):
+        data.loc[i, "species"] = random.choice(list(Species))
+        data.loc[i, "customerid"] = random.choice(customerIDList)
+        customerIDList.remove(data.loc[i, "customerid"])
+    data["customerid"] = data["customerid"].astype(int)
     return data
+
 
 def create_identification_dataframe(num_records):
     global identificationCounter1
     global customerIDList
     data = pd.DataFrame()
-    for i in tqdm(range(num_records), desc='Creating Identification DataFrame'):
-        data.loc[i, 'category'] = random.choice(list(IDType))
-        data.loc[i, 'identificationid'] = identificationCounter1
+    for i in tqdm(range(num_records), desc="Creating Identification DataFrame"):
+        data.loc[i, "category"] = random.choice(list(IDType))
+        data.loc[i, "identificationid"] = identificationCounter1
         identificationCounter1 += 1
-        data.loc[i, 'birthdate'] = fake.date_of_birth(minimum_age=18, maximum_age=90)
-        data.loc[i, 'issuedate'] = fake.date_this_decade(before_today=True, after_today=False)
-        data.loc[i, 'expirationdate'] = fake.date_between(start_date='+1y', end_date='+10y')
-        data.loc[i, 'idnumber'] = fake.random_number(digits=6)
-        data.loc[i, 'country'] = fake.country()
-        data.loc[i, 'customerid'] = random.choice(customerIDList)
-    data['identificationid'] = data['identificationid'].astype(int)
-    data['idnumber'] = data['idnumber'].astype(int)
-    data['customerid'] = data['customerid'].astype(int)
+        data.loc[i, "birthdate"] = fake.date_of_birth(minimum_age=18, maximum_age=90)
+        data.loc[i, "issuedate"] = fake.date_this_decade(
+            before_today=True, after_today=False
+        )
+        data.loc[i, "expirationdate"] = fake.date_between_dates(
+            date_start=data.loc[i, "issuedate"], date_end="+5y"
+        )
+        data.loc[i, "idnumber"] = fake.random_number(digits=6)
+        data.loc[i, "country"] = fake.country()
+        data.loc[i, "customerid"] = random.choice(customerIDList)
+    data["identificationid"] = data["identificationid"].astype(int)
+    data["idnumber"] = data["idnumber"].astype(int)
+    data["customerid"] = data["customerid"].astype(int)
     return data
+
 
 def create_rewards_customer_dataframe(num_records):
     global memberCounter
     global customerIDList
     data = pd.DataFrame()
-    for i in tqdm(range(num_records), desc='Creating RewardsCustomer DataFrame'):
-        data.loc[i, 'memberid'] = memberCounter
+    for i in tqdm(range(num_records), desc="Creating RewardsCustomer DataFrame"):
+        data.loc[i, "memberid"] = memberCounter
         memberCounter += 1
-        data.loc[i, 'status'] = random.choice(list(Status))
-        data.loc[i, 'signupdate'] = fake.date_this_decade(before_today=True, after_today=False)
-        data.loc[i, 'milesflown'] = fake.random_number(digits=4)
-        data.loc[i, 'customerid'] = random.choice(customerIDList)
-        customerIDList.remove(data.loc[i, 'customerid'])
-    data['memberid'] = data['memberid'].astype(int)
-    data['milesflown'] = data['milesflown'].astype(int)
-    data['customerid'] = data['customerid'].astype(int)
+        data.loc[i, "status"] = random.choice(list(Status))
+        data.loc[i, "signupdate"] = fake.date_this_decade(
+            before_today=True, after_today=False
+        )
+        data.loc[i, "milesflown"] = fake.random_number(digits=4)
+        data.loc[i, "customerid"] = random.choice(customerIDList)
+        customerIDList.remove(data.loc[i, "customerid"])
+    data["memberid"] = data["memberid"].astype(int)
+    data["milesflown"] = data["milesflown"].astype(int)
+    data["customerid"] = data["customerid"].astype(int)
     return data
+
 
 def create_review_dataframe(num_records):
     global ticketIDIncrementer2
     global reviewIDCounter
     data = pd.DataFrame()
-    for i in tqdm(range(num_records), desc='Creating Review DataFrame'):
-        data.loc[i, 'reviewid'] = reviewIDCounter
+    for i in tqdm(range(num_records), desc="Creating Review DataFrame"):
+        data.loc[i, "reviewid"] = reviewIDCounter
         reviewIDCounter += 1
-        data.loc[i, 'rating'] = random.randint(1, 5)
-        data.loc[i, 'comments'] = fake.text(max_nb_chars=200)
-        data.loc[i, 'ticketid'] = ticketIDIncrementer2
+        data.loc[i, "rating"] = random.randint(1, 5)
+        data.loc[i, "comments"] = fake.text(max_nb_chars=200)
+        data.loc[i, "ticketid"] = ticketIDIncrementer2
         ticketIDIncrementer2 += 1
-    data['reviewid'] = data['reviewid'].astype(int)
-    data['rating'] = data['rating'].astype(int)
-    data['ticketid'] = data['ticketid'].astype(int)
+    data["reviewid"] = data["reviewid"].astype(int)
+    data["rating"] = data["rating"].astype(int)
+    data["ticketid"] = data["ticketid"].astype(int)
     return data
+
 
 """Actually create the data frames with the desired number of records"""
 
