@@ -11,6 +11,7 @@ import pandas as pd
 from tqdm import tqdm
 from faker import Faker
 import random
+from datetime import timedelta
 
 fake = Faker()
 
@@ -89,7 +90,7 @@ def create_flight_info_dataframe(num_records):
                 + str(fake.random_number(digits=4))
             )
         data.loc[i, "flightcode"] = flightCode
-        flightCodeList += flightCode
+        flightCodeList += [flightCode]
         data.loc[i, "destination"] = fake.country_code(representation="alpha-3")
         data.loc[i, "origin"] = fake.country_code(representation="alpha-3")
         data.loc[i, "departuretime"] = fake.time()
@@ -117,27 +118,39 @@ def create_ticket_dataframe(num_records):
     seats = {}
     global ticketIDIncrementer1
     global flightIDMin
+
+
+
     data = pd.DataFrame()
     for i in tqdm(range(num_records), desc="Creating Ticket DataFrame"):
+        
+        flightID=random.randint(flightIDMin, flightIDMax)
+        
+        seatNumber=seatNumber = str(fake.random_number(digits=2)) + random.choice(
+            ["A", "B", "C", "D", "E", "F"]
+        )
+        while seatNumber in seats.get(flightID, []):
+            seatNumber = str(fake.random_number(digits=2)) + random.choice(
+                ["A", "B", "C", "D", "E", "F"]
+            )
+
+        if flightID in seats.keys():
+            seats[flightID] += [seatNumber]
+        else:
+            seats[flightID] = [seatNumber]
+
+        
         data.loc[i, "ticketid"] = ticketIDIncrementer1
         ticketIDIncrementer1 += 1
         data.loc[i, "ticketclass"] = random.choice(list(TicketClass))
+        data.loc[i, "seatnumber"] = seatNumber
         data.loc[i, "dietaryrestriction"] = random.choice(list(DietaryRestriction))
         data.loc[i, "luggagenumber"] = fake.random_number(digits=2)
         data.loc[i, "oversizedluggage"] = fake.random_number(digits=1)
         data.loc[i, "customerid"] = random.choice(customerIDList)
-        data.loc[i, "flightid"] = random.randint(flightIDMin, flightIDMax)
-        seatNumber = str(fake.random_number(digits=2)) + random.choice(
-            ["A", "B", "C", "D", "E", "F"]
-        )
-        while seatNumber in seats.get(data.loc[i, "flightid"], []):
-            seatNumber = str(fake.random_number(digits=2)) + random.choice(
-                ["A", "B", "C", "D", "E", "F"]
-            )
-        data.loc[i, "seatnumber"] = seatNumber
+        data.loc[i, "flightid"] = flightID
         data.loc[i, "zone"] = random.choice(["A", "B", "C", "D"])
         data.loc[i, "assistance"] = fake.random.choice(list(Assistance))
-        seats[data.loc[i, "flightid"]] = seatNumber
     data["ticketid"] = data["ticketid"].astype(int)
     data["luggagenumber"] = data["luggagenumber"].astype(int)
     data["oversizedluggage"] = data["oversizedluggage"].astype(int)
@@ -171,9 +184,9 @@ def create_identification_dataframe(num_records):
             before_today=True, after_today=False
         )
         data.loc[i, "expirationdate"] = fake.date_between_dates(
-            date_start=data.loc[i, "issuedate"], date_end="+5y"
+            date_start=data.loc[i, "issuedate"]+timedelta(days=1), date_end="+5y"
         )
-        data.loc[i, "idnumber"] = fake.random_number(digits=6)
+        data.loc[i, "idnumber"] = fake.random_number(digits=6)+1
         data.loc[i, "country"] = fake.country()
         data.loc[i, "customerid"] = random.choice(customerIDList)
     data["identificationid"] = data["identificationid"].astype(int)
@@ -222,10 +235,10 @@ def create_review_dataframe(num_records):
 """Actually create the data frames with the desired number of records"""
 
 create_customer_dataframe(50000).to_csv("Customers.csv", index=False)
-create_flight_info_dataframe(100).to_csv("Flight_Info.csv", index=False)
-create_flight_dataframe(2000).to_csv("Flights.csv", index=False)
-create_ticket_dataframe(200000).to_csv("Tickets.csv", index=False)
-create_pet_customer_dataframe(200).to_csv("Pet_Customers.csv", index=False)
+#create_flight_info_dataframe(100).to_csv("Flight_Info.csv", index=False)
+#create_flight_dataframe(2000).to_csv("Flights.csv", index=False)
+#create_ticket_dataframe(200000).to_csv("Tickets.csv", index=False)
+#create_pet_customer_dataframe(200).to_csv("Pet_Customers.csv", index=False)
 create_identification_dataframe(70000).to_csv("Identification.csv", index=False)
-create_rewards_customer_dataframe(20000).to_csv("Rewards_Customers.csv", index=False)
-create_review_dataframe(3000).to_csv("Reviews.csv", index=False)
+#create_rewards_customer_dataframe(20000).to_csv("Rewards_Customers.csv", index=False)
+#create_review_dataframe(3000).to_csv("Reviews.csv", index=False)

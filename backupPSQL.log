@@ -55,7 +55,10 @@ pg_dump: dumping contents of table "public.flightinfo"
 pg_dump: dumping contents of table "public.identification"
 pg_dump: dumping contents of table "public.petcustomer"
 pg_dump: dumping contents of table "public.review"
+pg_dump: dumping contents of table "public.rewardscustomer"
+pg_dump: dumping contents of table "public.ticket"
 
+pg_restore: connecting to database for restore
 pg_restore: dropping FK CONSTRAINT ticket ticket_flightid_fkey
 pg_restore: dropping FK CONSTRAINT ticket ticket_customerid_fkey
 pg_restore: dropping FK CONSTRAINT rewardscustomer rewardscustomer_customerid_fkey
@@ -63,6 +66,14 @@ pg_restore: dropping FK CONSTRAINT review review_ticketid_fkey
 pg_restore: dropping FK CONSTRAINT petcustomer petcustomer_customerid_fkey
 pg_restore: dropping FK CONSTRAINT identification identification_customerid_fkey
 pg_restore: dropping FK CONSTRAINT flight flight_flightcode_fkey
+pg_restore: dropping INDEX idx_ticket_flightid
+pg_restore: dropping INDEX idx_ticket_customerid_flightid
+pg_restore: dropping INDEX idx_ticket_customerid
+pg_restore: dropping INDEX idx_review_ticketid
+pg_restore: dropping INDEX idx_identification_customerid
+pg_restore: dropping INDEX idx_flight_flightcode
+pg_restore: dropping INDEX idx_flight_departuredate
+pg_restore: dropping CONSTRAINT ticket unique_seat
 pg_restore: dropping CONSTRAINT ticket ticket_pkey
 pg_restore: dropping CONSTRAINT rewardscustomer rewardscustomer_pkey
 pg_restore: dropping CONSTRAINT rewardscustomer rewardscustomer_memberid_key
@@ -81,6 +92,8 @@ pg_restore: dropping TABLE identification
 pg_restore: dropping TABLE flightinfo
 pg_restore: dropping TABLE flight
 pg_restore: dropping TABLE customer
+pg_restore: dropping FUNCTION update_flight_info(text, time without time zone)
+pg_restore: dropping FUNCTION update_and_select_flight(text, time without time zone)
 pg_restore: dropping TYPE ticketclass
 pg_restore: dropping TYPE status
 pg_restore: dropping TYPE species
@@ -93,6 +106,8 @@ pg_restore: creating TYPE "public.idtype"
 pg_restore: creating TYPE "public.species"
 pg_restore: creating TYPE "public.status"
 pg_restore: creating TYPE "public.ticketclass"
+pg_restore: creating FUNCTION "public.update_and_select_flight(text, time without time zone)"
+pg_restore: creating FUNCTION "public.update_flight_info(text, time without time zone)"
 pg_restore: creating TABLE "public.customer"
 pg_restore: creating TABLE "public.flight"
 pg_restore: creating TABLE "public.flightinfo"
@@ -119,6 +134,14 @@ pg_restore: creating CONSTRAINT "public.review review_ticketid_key"
 pg_restore: creating CONSTRAINT "public.rewardscustomer rewardscustomer_memberid_key"
 pg_restore: creating CONSTRAINT "public.rewardscustomer rewardscustomer_pkey"
 pg_restore: creating CONSTRAINT "public.ticket ticket_pkey"
+pg_restore: creating CONSTRAINT "public.ticket unique_seat"
+pg_restore: creating INDEX "public.idx_flight_departuredate"
+pg_restore: creating INDEX "public.idx_flight_flightcode"
+pg_restore: creating INDEX "public.idx_identification_customerid"
+pg_restore: creating INDEX "public.idx_review_ticketid"
+pg_restore: creating INDEX "public.idx_ticket_customerid"
+pg_restore: creating INDEX "public.idx_ticket_customerid_flightid"
+pg_restore: creating INDEX "public.idx_ticket_flightid"
 pg_restore: creating FK CONSTRAINT "public.flight flight_flightcode_fkey"
 pg_restore: creating FK CONSTRAINT "public.identification identification_customerid_fkey"
 pg_restore: creating FK CONSTRAINT "public.petcustomer petcustomer_customerid_fkey"

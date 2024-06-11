@@ -58,6 +58,14 @@ pg_restore: dropping FK CONSTRAINT review review_ticketid_fkey
 pg_restore: dropping FK CONSTRAINT petcustomer petcustomer_customerid_fkey
 pg_restore: dropping FK CONSTRAINT identification identification_customerid_fkey
 pg_restore: dropping FK CONSTRAINT flight flight_flightcode_fkey
+pg_restore: dropping INDEX idx_ticket_flightid
+pg_restore: dropping INDEX idx_ticket_customerid_flightid
+pg_restore: dropping INDEX idx_ticket_customerid
+pg_restore: dropping INDEX idx_review_ticketid
+pg_restore: dropping INDEX idx_identification_customerid
+pg_restore: dropping INDEX idx_flight_flightcode
+pg_restore: dropping INDEX idx_flight_departuredate
+pg_restore: dropping CONSTRAINT ticket unique_seat
 pg_restore: dropping CONSTRAINT ticket ticket_pkey
 pg_restore: dropping CONSTRAINT rewardscustomer rewardscustomer_pkey
 pg_restore: dropping CONSTRAINT rewardscustomer rewardscustomer_memberid_key
@@ -118,6 +126,14 @@ pg_restore: creating CONSTRAINT "public.review review_ticketid_key"
 pg_restore: creating CONSTRAINT "public.rewardscustomer rewardscustomer_memberid_key"
 pg_restore: creating CONSTRAINT "public.rewardscustomer rewardscustomer_pkey"
 pg_restore: creating CONSTRAINT "public.ticket ticket_pkey"
+pg_restore: creating CONSTRAINT "public.ticket unique_seat"
+pg_restore: creating INDEX "public.idx_flight_departuredate"
+pg_restore: creating INDEX "public.idx_flight_flightcode"
+pg_restore: creating INDEX "public.idx_identification_customerid"
+pg_restore: creating INDEX "public.idx_review_ticketid"
+pg_restore: creating INDEX "public.idx_ticket_customerid"
+pg_restore: creating INDEX "public.idx_ticket_customerid_flightid"
+pg_restore: creating INDEX "public.idx_ticket_flightid"
 pg_restore: creating FK CONSTRAINT "public.flight flight_flightcode_fkey"
 pg_restore: creating FK CONSTRAINT "public.identification identification_customerid_fkey"
 pg_restore: creating FK CONSTRAINT "public.petcustomer petcustomer_customerid_fkey"
