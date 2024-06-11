@@ -235,10 +235,10 @@ def create_review_dataframe(num_records):
 """Actually create the data frames with the desired number of records"""
 
 create_customer_dataframe(50000).to_csv("Customers.csv", index=False)
-#create_flight_info_dataframe(100).to_csv("Flight_Info.csv", index=False)
-#create_flight_dataframe(2000).to_csv("Flights.csv", index=False)
-#create_ticket_dataframe(200000).to_csv("Tickets.csv", index=False)
-#create_pet_customer_dataframe(200).to_csv("Pet_Customers.csv", index=False)
+create_flight_info_dataframe(100).to_csv("Flight_Info.csv", index=False)
+create_flight_dataframe(2000).to_csv("Flights.csv", index=False)
+create_ticket_dataframe(200000).to_csv("Tickets.csv", index=False)
+create_pet_customer_dataframe(200).to_csv("Pet_Customers.csv", index=False)
 create_identification_dataframe(70000).to_csv("Identification.csv", index=False)
-#create_rewards_customer_dataframe(20000).to_csv("Rewards_Customers.csv", index=False)
-#create_review_dataframe(3000).to_csv("Reviews.csv", index=False)
+create_rewards_customer_dataframe(20000).to_csv("Rewards_Customers.csv", index=False)
+create_review_dataframe(3000).to_csv("Reviews.csv", index=False)
