@@ -41,31 +41,31 @@ JOIN TicketDetails td ON cf.CustomerID = td.CustomerID AND td.rn = 1
 ORDER BY cf.total_flights DESC;
 
 
--- Reschedule all flights with the flight code LH594 to 11:15:00
+-- Reschedule all flights with the flight code GW8225 to 11:15:00
 UPDATE FlightInfo
 SET DepartureTime = '11:15:00'
-WHERE FlightCode = 'LH594';
+WHERE FlightCode = 'GW8225';
 
 -- Reschedule all flights that were scheduled to depart on July 22nd, 2024 to the next day.
 UPDATE Flight
 SET DepartureDate = '2024-7-23'
 WHERE DepartureDate = '2024-7-22';
 
--- Delete all flights that were completed before June 4th, 2024.
+-- Delete all flights that were completed before July 1st, 2024.
 
 BEGIN;
 	DELETE FROM Review 
 	WHERE TicketID IN (
 		SELECT TicketID FROM Ticket WHERE FlightID IN (
-			SELECT FlightID FROM Flight WHERE DepartureDate < '2024-6-4'
+			SELECT FlightID FROM Flight WHERE DepartureDate < '2024-7-1'
 		)
 	);
 	DELETE FROM Ticket
 	WHERE FlightID IN (
-		SELECT FlightID FROM Flight WHERE DepartureDate < '2024-6-4'
+		SELECT FlightID FROM Flight WHERE DepartureDate < '2024-7-1'
 	);
 	DELETE FROM Flight
-	WHERE DepartureDate < '2024-6-4';
+	WHERE DepartureDate < '2024-7-1';
 
 COMMIT;
 

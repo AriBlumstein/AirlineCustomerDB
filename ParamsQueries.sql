@@ -36,7 +36,7 @@ PREPARE Update_Seat(int, text) AS
 	SET SeatNumber = $2
 	WHERE TicketID = $1;
 
-EXECUTE Update_Seat(100003, 'A2');
+EXECUTE Update_Seat(100003, '2A');
 
 
 -- Remove all bookings associated with a specific flight that has been canceled.
@@ -50,4 +50,3 @@ PREPARE Cancel_Flight_Bookings(int) AS
 	WHERE TicketID IN (SELECT TicketID FROM Deleted_Tickets);
 
 EXECUTE Cancel_Flight_Bookings(200127);
-

@@ -1,0 +1,47 @@
+Query 1: Violates the unique_seat constraint which says that more than one ticket cannot have the same seat on the same flight. See error -
+
+ERROR:  Key (flightid, seatnumber)=(200703, 10B) already exists.duplicate key value violates unique constraint "unique_seat" 
+
+ERROR:  duplicate key value violates unique constraint "unique_seat"
+SQL state: 23505
+Detail: Key (flightid, seatnumber)=(200703, 10B) already exists.
+
+
+
+Query 2: Violates the expire_later constraint which says that the expiration date of the identification must be after the issue date. See error -
+
+ERROR:  Failing row contains (ID, 1, 1998-10-10, 2022-10-10, 2022-09-09, 876873, USA, 32051).new row for relation "identification" violates check constraint "expire_later" 
+
+ERROR:  new row for relation "identification" violates check constraint "expire_later"
+SQL state: 23514
+Detail: Failing row contains (ID, 1, 1998-10-10, 2022-10-10, 2022-09-09, 876873, USA, 32051).
+
+
+
+Query 3: Violates the birth_date_in_past constraint which says the the customer's date of birth must be before the current date. See error -
+
+ERROR:  Failing row contains (ID, 1, 2998-10-10, 2022-10-10, 2024-09-09, 876873, USA, 32051).new row for relation "identification" violates check constraint "birth_date_in_past" 
+
+ERROR:  new row for relation "identification" violates check constraint "birth_date_in_past"
+SQL state: 23514
+Detail: Failing row contains (ID, 1, 2998-10-10, 2022-10-10, 2024-09-09, 876873, USA, 32051).
+
+
+
+Query 4: Violates the sign_up_in_past constraints which says that the sign-up date of the rewardsCustomer must be before the current date. See error -
+
+ERROR:  Failing row contains (111111, None, 2025-10-10, 0, 32051).new row for relation "rewardscustomer" violates check constraint "sign_up_in_past" 
+
+ERROR:  new row for relation "rewardscustomer" violates check constraint "sign_up_in_past"
+SQL state: 23514
+Detail: Failing row contains (111111, None, 2025-10-10, 0, 32051).
+
+
+
+Query 5: Violates the check_seat_format contstraint which says that the seat number must be a number followed by a letter. See error -
+
+ERROR:  Failing row contains (3, Business, 1, None, 0, 0, 22202, 200703, A, None).new row for relation "ticket" violates check constraint "check_seat_format" 
+
+ERROR:  new row for relation "ticket" violates check constraint "check_seat_format"
+SQL state: 23514
+Detail: Failing row contains (3, Business, 1, None, 0, 0, 22202, 200703, A, None).

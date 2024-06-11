@@ -6,7 +6,6 @@ INSERT INTO Ticket VALUES
 --issue date is after expiration date
 INSERT INTO Identification VALUES
 ('ID', 1, '1998-10-10', '2022-10-10', '2022-9-9', 876873, 'USA', 32051);
-birthdate is in the future
 
 --Birthdate is not in the past
 INSERT INTO Identification VALUES

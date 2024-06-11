@@ -80,11 +80,11 @@ SELECT Queries:
 4. List all customers who have traveled more than five times, including their total number of flights and the most frequent destination.
 
 UPDATE Queries:
-1. Reschedule all flights with the flight code LH594 to 11:15:00
+1. Reschedule all flights with the flight code GW8225 to 11:15:00
 2. Reschedule all flights that were scheduled to depart on July 22nd, 2024 to the next day.
 
 DELETE Queries:
-1. Delete all flights that were completed before June 4th, 2024.
+1. Delete all flights that were completed before July 1st, 2024.
 2. Delete customer records who have not flown in the past month and has no future flights.
 
 ### The above queries are written in SQL here: [Queries](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/Queries.sql)
@@ -138,4 +138,24 @@ DELETE Queries:
 | 2            | 28.801                        | 7.086                      | idx_ticket_flightid   |
 | 3            | 0.739                         | 2.601                      |                       |
 | 4            | 27.853                        | 5.836                      | id_ticket_flightid    |
+
+## Constraints
+
+### We added the following constraints to make our database more robust:
+1. Prevent two customers from having the same seat on a flight
+2. Identification is valid such that the expiration date is after the issue date
+3. Identification is valid such that the birthdate is in the past
+4. Signup Date for for Rewards Customer is not in the future
+5. The seat number is of a valid format
+#### The commands for altering the tables to add these constraints is in [Constraints](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/Constraints.sql)
+
+### The following are [test queries](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/ConstraintBreakers.sql) to try to break the constraints to make sure they're working:
+1. Break the unique seat constraint that no two customers can have the same seat on a flight
+2. Beak the the identification constraint: issue date is after expiration date
+3. Beak the the identification constraint: Birthdate is not in the past
+4. Break the rewards customer constraint that the signup date cannot be in the future
+5. Break the seat number constraint that it matches a standard pattern
+
+### The error messages produced by each of these queries is [here.](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/ConstraintBreakers.log)
+
 
