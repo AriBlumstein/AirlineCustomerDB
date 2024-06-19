@@ -24,7 +24,7 @@ All of these entities together can support the outfacing information if a custom
 
 Enums were created when we created the tables to support different value type that expect certain values. 
 
-
+A feature of our system also allows any value for the country field, to allow any country they may come into existance in the future.
 
 ![ERDimage](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/ERD.png?raw=true)
 
