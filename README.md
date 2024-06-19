@@ -87,6 +87,8 @@ DELETE Queries:
 1. Delete all flights that were completed before July 1st, 2024.
 2. Delete customer records who have not flown in the past month and has no future flights.
 
+As we do not have "On Delete Cascade" on any of our foreign key constraints, we needed to handle deleting from other relations before preforming our main deletes. This is a feature to maintain transparency. All such grouped queries are within a begin-commit block so they will run in an all-or-none fashion to better maintain data integrity. 
+
 ### The above queries are written in SQL here: [Queries](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/Queries.sql)
 ### The analysis for these queries is here: [QueryTiming](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/QueryTiming.log)
 
