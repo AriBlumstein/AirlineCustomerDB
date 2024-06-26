@@ -81,18 +81,18 @@ pg_restore --host "localhost" --port "5432" --username "postgres" --dbname "Airl
 ## Queries
 ### Regular Queries in Plain English
 SELECT Queries:
-1. Retrieve a list of all flights including their departure and arrival locations, and scheduled times.
-2. Find the total number of bookings made by each customer, including the customer's name.
-3. Get the average rating from each rewards customers
-4. List all customers who have traveled more than five times, including their total number of flights and the most frequent destination.
+1. (Query number 1) Retrieve a list of all flights including their departure and arrival locations, and scheduled times.
+2. (Query number 2) Find the total number of bookings made by each customer, including the customer's name.
+3. (Query number 3) Get the average rating from each rewards customers
+4. (Query number 4) List all customers who have traveled more than five times, including their total number of flights and the most frequent destination.
 
 UPDATE Queries:
-5. Reschedule all flights with the flight code GW8225 to 11:15:00
-6. Reschedule all flights that were scheduled to depart on July 22nd, 2024 to the next day.
+1. (Query number 5) Reschedule all flights with the flight code GW8225 to 11:15:00.
+2. (Query number 6) Reschedule all flights that were scheduled to depart on July 22nd, 2024 to the next day.
 
 DELETE Queries:
-7. Delete all flights that were completed before July 1st, 2024.
-8. Delete customer records who have not flown in the past month and has no future flights.
+1. (Query number 7) Delete all flights that were completed before July 1st, 2024.
+2. (Query number 8) Delete customer records who have not flown in the past month and has no future flights.
 
 As we do not have "On Delete Cascade" on any of our foreign key constraints, we needed to handle deleting from other relations before preforming our main deletes. This is a feature to maintain transparency. All such grouped queries are within a begin-commit block so they will run in an all-or-none fashion to better maintain data integrity. 
 
