@@ -1,6 +1,6 @@
 --Parameterized queries
 
---Get the total number of flights to a specific destination within a specifc time range.
+-- Query 1 - Get the total number of flights to a specific destination within a specifc time range.
 PREPARE Flights_To_Destination (text, date, date) AS
     SELECT $1 AS Destination, $2 AS start_date, $3 AS end_date, 
            COALESCE(COUNT(f.FlightCode), 0) AS total_flights
@@ -16,7 +16,7 @@ PREPARE Flights_To_Destination (text, date, date) AS
 EXECUTE Flights_To_Destination('EGY', '2023-07-30', '2024-07-31');
 
 
---Get The rewards customers on a specific flight with a minimum status.
+-- Query 2 - Get The rewards customers on a specific flight with a minimum status.
 PREPARE Customer_With_Status(int, status) AS
 	SELECT *
 	FROM RewardsCustomer
@@ -30,7 +30,7 @@ PREPARE Customer_With_Status(int, status) AS
 EXECUTE Customer_With_Status(200399, 'Silver');
 
 
--- Update the seat of a specific customer on a specific flight.
+-- Query 3 - Update the seat of a specific customer on a specific flight.
 PREPARE Update_Seat(int, text) AS
 	UPDATE Ticket
 	SET SeatNumber = $2
@@ -39,7 +39,7 @@ PREPARE Update_Seat(int, text) AS
 EXECUTE Update_Seat(100003, '2A');
 
 
--- Remove all bookings associated with a specific flight that has been canceled.
+-- Query 4 - Remove all bookings associated with a specific flight that has been canceled.
 PREPARE Cancel_Flight_Bookings(int) AS
 	WITH Deleted_Tickets AS (
 	    DELETE FROM Ticket

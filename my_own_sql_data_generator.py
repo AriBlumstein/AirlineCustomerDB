@@ -13,19 +13,19 @@ from faker import Faker
 import random
 from datetime import timedelta
 
-fake = Faker()
+fake = Faker() # Initialize Faker
 
 """Make Enums"""
 
-Species = ["Dog", "Cat", "Other"]
+Species = ["Dog", "Cat", "Other"] # Pet Customer
 
-Status = ["None", "Silver", "Gold"]
+Status = ["None", "Silver", "Gold"] # Rewards Customer
 
-TicketClass = ["Economy", "Premium", "Business", "FirstClass"]
+TicketClass = ["Economy", "Premium", "Business", "FirstClass"] # Ticket Class
 
-IDType = ["ID", "DriversLicence", "Passport"]
+IDType = ["ID", "DriversLicence", "Passport"] # Identification
 
-DietaryRestriction = [
+DietaryRestriction = [ 
     "None",
     "Kosher",
     "Vegan",
@@ -39,67 +39,70 @@ Assistance = ["None", "Wheelchair", "Minor"]
 
 """Create Counters for Unique items"""
 
-idIncrementingCounter1 = 1
+idIncrementingCounter1 = 1 # Customer
 
-customerIDList = []
+customerIDList = [] #customers created
 
-identificationCounter1 = 1876589
+identificationCounter1 = 1876589 # Identification
 
-memberCounter = 43567723
+memberCounter = 43567723 # Rewards Customer
 
-ticketIDIncrementer1 = 100000
-ticketIDIncrementer2 = 100000
+ticketIDIncrementer1 = 100000 # Ticket
+ticketIDIncrementer2 = 100000 # for review
 
-flightIDCounter1 = 200000
-flightIDMin = 200000
-flightIDMax = 0
+flightIDCounter1 = 200000 # Flight
+flightIDMin = 200000 # the min created
+flightIDMax = 0 # the max created
 
-reviewIDCounter = 500000
+reviewIDCounter = 500000 # Review
 
-flightCodeList = []
+flightCodeList = [] # Flightcodes created
 
 """Create Data Frame for each table with random values"""
 
 
 def create_customer_dataframe(num_records):
+    """ Create the customer data frame with the desired number of records"""
     global idIncrementingCounter1
     global customerIDList
     data = pd.DataFrame()
     for i in tqdm(range(num_records), desc="Creating Customer DataFrame"):
         data.loc[i, "customerid"] = idIncrementingCounter1
-        customerIDList += [idIncrementingCounter1]
-        idIncrementingCounter1 += 1
+        customerIDList += [idIncrementingCounter1] # Add customer id to list to store for later use (pet and rewards customer)
+        idIncrementingCounter1 += 1 # Increment customer id
         data.loc[i, "name"] = fake.name()
-    data["customerid"] = data["customerid"].astype(int)
+    data["customerid"] = data["customerid"].astype(int) # Convert to int 
     return data
 
 
 def create_flight_info_dataframe(num_records):
+    """ Create the flight info data frame with the desired number of records"""
     global flightCodeList
     data = pd.DataFrame()
     for i in tqdm(range(num_records), desc="Creating FlightInfo DataFrame"):
-        flightCode = (
+        flightCode = ( # Generate random flight code
             fake.random_letter()
             + fake.random_letter()
             + str(fake.random_number(digits=4))
         )
-        while flightCode in flightCodeList:
+        while flightCode in flightCodeList: # Make sure flight code is unique
             flightCode = (
                 fake.random_letter()
                 + fake.random_letter()
                 + str(fake.random_number(digits=4))
             )
         data.loc[i, "flightcode"] = flightCode
-        flightCodeList += [flightCode]
-        data.loc[i, "destination"] = fake.country_code(representation="alpha-3")
-        data.loc[i, "origin"] = fake.country_code(representation="alpha-3")
+        flightCodeList += [flightCode] # Add flight code to list to store for later use, (flights)
+        data.loc[i, "destination"] = fake.country_code(representation="alpha-3") #3 letter country code
+        data.loc[i, "origin"] = fake.country_code(representation="alpha-3") #3 letter country code
         data.loc[i, "departuretime"] = fake.time()
     return data
 
 
 def create_flight_dataframe(num_records):
+    """ Create the flight data frame with the desired number of records"""
     global flightIDCounter1
-    global flightIDMax
+    global flightIDMax # Set max flight id , makes a range of ids to choose from
     global flightCodeList
     data = pd.DataFrame()
     for i in tqdm(range(num_records), desc="Creating Flight DataFrame"):
@@ -107,39 +110,36 @@ def create_flight_dataframe(num_records):
             before_today=False, after_today=True
         )
         data.loc[i, "flightid"] = flightIDCounter1
-        flightIDCounter1 += 1
-        data.loc[i, "flightcode"] = random.choice(flightCodeList)
+        flightIDCounter1 += 1 # Increment flight id for next one
+        data.loc[i, "flightcode"] = random.choice(flightCodeList) # Get random flight code from what we created
     data["flightid"] = data["flightid"].astype(int)
-    flightIDMax = data.loc[num_records - 1, "flightid"]
+    flightIDMax = data.loc[num_records - 1, "flightid"] # Set max flight id, helps with ticket generation
     return data
 
 
 def create_ticket_dataframe(num_records):
-    seats = {}
+    """ Create the ticket data frame with the desired number of records"""
+    seats = {} # Create dictionary to store flight id and seat number, for unique constraint
     global ticketIDIncrementer1
-    global flightIDMin
-
-
 
     data = pd.DataFrame()
     for i in tqdm(range(num_records), desc="Creating Ticket DataFrame"):
         
-        flightID=random.randint(flightIDMin, flightIDMax)
+        flightID=random.randint(flightIDMin, flightIDMax) # Get random flight id from the range we made above
         
-        seatNumber=seatNumber = str(fake.random_number(digits=2)) + random.choice(
+        seatNumber=seatNumber = str(fake.random_number(digits=2)) + random.choice( # Generate random seat number
             ["A", "B", "C", "D", "E", "F"]
         )
-        while seatNumber in seats.get(flightID, []):
+        while seatNumber in seats.get(flightID, []): # Make sure seat number is unique for the flight
             seatNumber = str(fake.random_number(digits=2)) + random.choice(
                 ["A", "B", "C", "D", "E", "F"]
             )
 
-        if flightID in seats.keys():
+        if flightID in seats.keys(): # Add seat number to dictionary for unique constraint
             seats[flightID] += [seatNumber]
         else:
             seats[flightID] = [seatNumber]
-
-        
+ 
         data.loc[i, "ticketid"] = ticketIDIncrementer1
         ticketIDIncrementer1 += 1
         data.loc[i, "ticketclass"] = random.choice(list(TicketClass))
@@ -160,20 +160,21 @@ def create_ticket_dataframe(num_records):
 
 
 def create_pet_customer_dataframe(num_records):
-    global idIncrementingCounter3
+    """ Create the pet customer data frame with the desired number of records"""
     global customerIDList
     data = pd.DataFrame()
     for i in tqdm(range(num_records), desc="Creating PetCustomer DataFrame"):
         data.loc[i, "species"] = random.choice(list(Species))
         data.loc[i, "customerid"] = random.choice(customerIDList)
-        customerIDList.remove(data.loc[i, "customerid"])
-    data["customerid"] = data["customerid"].astype(int)
+        customerIDList.remove(data.loc[i, "customerid"]) # Remove customer id from list, keep unique constraint here
+    data["customerid"] = data["customerid"].astype(int) # Convert to int
     return data
 
 
 def create_identification_dataframe(num_records):
+    """ Create the identification data frame with the desired number of records"""
     global identificationCounter1
-    global customerIDList
+    global customerIDList # Get customer id list from above
     data = pd.DataFrame()
     for i in tqdm(range(num_records), desc="Creating Identification DataFrame"):
         data.loc[i, "category"] = random.choice(list(IDType))
@@ -196,15 +197,16 @@ def create_identification_dataframe(num_records):
 
 
 def create_rewards_customer_dataframe(num_records):
-    global memberCounter
+    """ Create the rewards customer data frame with the desired number of records"""
+    global memberCounter 
     global customerIDList
     data = pd.DataFrame()
     for i in tqdm(range(num_records), desc="Creating RewardsCustomer DataFrame"):
         data.loc[i, "memberid"] = memberCounter
-        memberCounter += 1
+        memberCounter += 1 # Increment member id
         data.loc[i, "status"] = random.choice(list(Status))
         data.loc[i, "signupdate"] = fake.date_this_decade(
-            before_today=True, after_today=False
+            before_today=True, after_today=False # Get random sign up date that is in the past
         )
         data.loc[i, "milesflown"] = fake.random_number(digits=4)
         data.loc[i, "customerid"] = random.choice(customerIDList)
@@ -216,6 +218,7 @@ def create_rewards_customer_dataframe(num_records):
 
 
 def create_review_dataframe(num_records):
+    """ Create the review data frame with the desired number of records"""
     global ticketIDIncrementer2
     global reviewIDCounter
     data = pd.DataFrame()
@@ -225,7 +228,7 @@ def create_review_dataframe(num_records):
         data.loc[i, "rating"] = random.randint(1, 5)
         data.loc[i, "comments"] = fake.text(max_nb_chars=200)
         data.loc[i, "ticketid"] = ticketIDIncrementer2
-        ticketIDIncrementer2 += 1
+        ticketIDIncrementer2 += 1 # Increment ticket id for next one
     data["reviewid"] = data["reviewid"].astype(int)
     data["rating"] = data["rating"].astype(int)
     data["ticketid"] = data["ticketid"].astype(int)
@@ -233,7 +236,7 @@ def create_review_dataframe(num_records):
 
 
 """Actually create the data frames with the desired number of records"""
-
+# order matters, create the data for the tables in the correct order, so we have no violations of foreign key constraints
 create_customer_dataframe(50000).to_csv("Customers.csv", index=False)
 create_flight_info_dataframe(100).to_csv("Flight_Info.csv", index=False)
 create_flight_dataframe(2000).to_csv("Flights.csv", index=False)

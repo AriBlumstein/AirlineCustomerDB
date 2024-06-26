@@ -43,13 +43,17 @@ This repository includes the following files to run to set up the database
 
 ## Dump Command:
 We were successfully able to dump the data and restore it on another computer, using commandline. Here is the command: 
-### pg_dump --file "backupSQL.sql" --host "localhost" --port "5432" --username "postgres" --format=c --large-objects --verbose "AirlineCustomer"
+```sh
+pg_dump --file "backupSQL.sql" --host "localhost" --port "5432" --username "postgres" --format=c --large-objects --verbose "AirlineCustomer"
+```
 
 After the command, enter your password for your postgres user.
 
 ## Restore Command:
 We ran into an issue when restoring, due to foreigh key constraints not necessarily being met when the running commands in different orders, so we enabled the  "disable triggers" option which solved this issue.
-### pg_restore --host "localhost" --port "5432" --username "postgres" --dbname "AirlineCustomer" --clean --if-exists --disable-triggers --verbose "backupSQL.sql"
+```sh
+pg_restore --host "localhost" --port "5432" --username "postgres" --dbname "AirlineCustomer" --clean --if-exists --disable-triggers --verbose "backupSQL.sql"
+```
 
 After the command, enter your password for your postgres user.
 
@@ -58,14 +62,17 @@ After the command, enter your password for your postgres user.
 
 ## Dump Command with Drop, Create and Insert:
 We were successfully able to dump the data and restore it on another computer, using commandline. Here is the command:
-### pg_dump --file "backupSQLinserts.sql" --host "localhost" --port "5432" --username "postgres" --format=c --large-objects --inserts --rows-per-insert "1000" --create --clean --if-exists --verbose "AirlineCustomer"
+```sh
+pg_dump --file "backupSQLinserts.sql" --host "localhost" --port "5432" --username "postgres" --format=c --large-objects --inserts --rows-per-insert "1000" --create --clean --if-exists --verbose "AirlineCustomer"
+```
 
 After the command, enter your password for your postgres user.
 
 ## Restore Command:
 We ran into an issue when restoring, due to foreigh key constraints not necessarily being met when the running commands in different orders, so we enabled the  "disable triggers" option which solved this issue.
-### pg_restore --host "localhost" --port "5432" --username "postgres" --dbname "AirlineCustomer" --clean --if-exists --disable-triggers --verbose "backupSQLinserts.sql
-
+```sh
+pg_restore --host "localhost" --port "5432" --username "postgres" --dbname "AirlineCustomer" --clean --if-exists --disable-triggers --verbose "backupSQLinserts.sql
+```
 
 ### Output Log for Dump and Restore
 [backupPSQLinserts.log](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/backupPSQLinserts.log)
@@ -80,12 +87,12 @@ SELECT Queries:
 4. List all customers who have traveled more than five times, including their total number of flights and the most frequent destination.
 
 UPDATE Queries:
-1. Reschedule all flights with the flight code GW8225 to 11:15:00
-2. Reschedule all flights that were scheduled to depart on July 22nd, 2024 to the next day.
+5. Reschedule all flights with the flight code GW8225 to 11:15:00
+6. Reschedule all flights that were scheduled to depart on July 22nd, 2024 to the next day.
 
 DELETE Queries:
-1. Delete all flights that were completed before July 1st, 2024.
-2. Delete customer records who have not flown in the past month and has no future flights.
+7. Delete all flights that were completed before July 1st, 2024.
+8. Delete customer records who have not flown in the past month and has no future flights.
 
 ### The above queries are written in SQL here: [Queries](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/Queries.sql)
 ### The analysis for these queries is here: [QueryTiming](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/QueryTiming.log)
@@ -114,6 +121,9 @@ DELETE Queries:
 - TicketID
 ### Identification Table
 - CustomerID
+
+### Index Naming Convention
+idx_*TableName*_*Attribute*+
 
 ### The logs for analysis and timing of regular queries are [here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/QueryTimingIndexes.log) and for parameterized queries are [here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/ParamQueryTimingIndexes.log)
 
