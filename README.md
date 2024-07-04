@@ -109,6 +109,11 @@ SELECT Queries:
 3. (Query number 3) Get the average rating from each rewards customers
 4. (Query number 4) List all customers who have traveled more than five times, including their total number of flights and the most frequent destination.
 
+### Additional Queries added in stage 3
+5. (Query number 9) Retrieve Customer Details along with their flight information
+6. (Query number 10) Retrieve flights with the number of customers booked from JPN
+7. (Query number 11) Retrieve flights and the number of bookings for each flight
+
 UPDATE Queries:
 
 1. (Query number 5) Reschedule all flights with the flight code GW8225 to 11:15:00.
@@ -157,7 +162,7 @@ As we do not have "On Delete Cascade" on any of our foreign key constraints, we 
 - CustomerID
 
 ### Index Naming Convention
-idx\_*TableName*_*Attribute*
+idx\_*TableName*\_*Attribute*
 
 ### The logs for analysis and timing of regular queries are [here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/QueryTimingIndexes.log) and for parameterized queries are [here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/ParamQueryTimingIndexes.log)
 
@@ -168,12 +173,17 @@ idx\_*TableName*_*Attribute*
 |--------------|-------------------------------|----------------------------|--------------------------------------------------|
 | 1            | 6.455                         | 5.277                      |                                                  |
 | 2            | 111.229                       | 103.584                    |                                                  |
-| 3            | 11.391                        | 1.61                       | idx\_review\_ticket\_id                             |
-| 4            | 412.055                       | 319.23                     | idx\_ticket\_customerid\_flight\_id                  |
+| 3            | 11.391                        | 1.61                       | idx\_review\_ticket\_id                          |
+| 4            | 412.055                       | 319.23                     | idx\_ticket\_customerid\_flight\_id              |
 | 5            | 0.602                         | 0.121                      |                                                  |
-| 6            | 0.846                         | 0.686                      | idx\_flight\_departuredate                         |
+| 6            | 0.846                         | 0.686                      | idx\_flight\_departuredate                       |
 | 7            | 1588.249                      | 141.302                    | idx\_review\_ticket\_id, idx\_flight\_departuredate(2)|
 | 8            | 7377.054                      | 261.332                    | idx\_ticket\_customerid, idx\_identification\_customer |
+| 9            | N/A                           | 139.802                    |                                                  |
+| 10           | N/A                           | 6.581                      | idx\_flight\_flightcode, idx\_ticket\_flightid   |
+| 11           | N/A                           | 85.197                     |                                                  |
+
+
 
 #### Parameterized Queries
 | Query Number | Runtime Without Indexing (ms) | Runtime With Indexing (ms) | Index Used            |
