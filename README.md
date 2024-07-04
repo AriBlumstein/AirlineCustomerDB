@@ -86,6 +86,11 @@ SELECT Queries:
 3. (Query number 3) Get the average rating from each rewards customers
 4. (Query number 4) List all customers who have traveled more than five times, including their total number of flights and the most frequent destination.
 
+### Additional Queries added in stage 3
+5. (Query number 9) Retrieve Customer Details along with their flight information
+6. (Query number 10) Retrieve flights with the number of customers booked from JPN
+7. (Query number 11) Retrieve flights and the number of bookings for each flight
+
 UPDATE Queries:
 1. (Query number 5) Reschedule all flights with the flight code GW8225 to 11:15:00.
 2. (Query number 6) Reschedule all flights that were scheduled to depart on July 22nd, 2024 to the next day.
@@ -142,6 +147,10 @@ idx_*TableName*_*Attribute*+
 | 6            | 0.846                         | 0.686                      | idx_flight_departuredate                         |
 | 7            | 1588.249                      | 141.302                    | idx_review_ticket_id, idx_flight_departuredate(2)|
 | 8            | 7377.054                      | 261.332                    | idx_ticket_customerid, idx_identification_customer |
+| 9            | N/A                           | 139.802                    |                                                  |
+| 10           | N/A                           | 6.581                      | idx_flight_flightcode, idx_ticket_flightid       |
+| 11           | N/A                           | 85.197                     |                                                  |
+
 
 #### Parameterized Queries
 | Query Number | Runtime Without Indexing (ms) | Runtime With Indexing (ms) | Index Used            |
