@@ -203,6 +203,24 @@ idx\_*TableName*_*Attribute*
 4. Break the rewards customer constraint that the signup date cannot be in the future
 5. Break the seat number constraint that it matches a standard pattern
 
-### The error messages produced by each of these queries is [here.](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/ConstraintBreakers.log)
+### The error messages produced by each of these queries is [here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/ConstraintBreakers.log).
 
+## Views
 
+We created views for different user subgroups:
+
+#### User Sub-Groups:
+
+1.	**Customer Service Representatives**: Need details on customers and their bookings to assist with customer inquiries.
+2.	**Flight Managers**: Need to know the number of bookings for each flight to manage capacity and resources.
+3.	**Japan Flight Analysts**: Need to analyze the number of customers flying from JPN, because this is a majot hub for our airline.
+4.	**Flight Schedulers**: Need detailed schedules for all flights.
+
+#### We created the views [here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/Views.sql).
+
+To test these views we implemented various SELECT, UPDATE, and DELETE queries on each view. The queries are **[here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/ViewQueries.sql).**
+
+For views 1 and 4 we weren't sure if UPDATE and DELETE queries would fail, so we tried them, and they ended up failing due to the fact that they were based on multiple tables. 
+For views 2 and 3, we knew the UPDATE and DELETE queries wouldn't work because they contained aggregates, so we didn't even try those.
+
+The logs and explanations of what the queries were trying to accomplish is **[here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/viewQueryLogs.log).**

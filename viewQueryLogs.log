@@ -1,0 +1,219 @@
+Log Output For ViewQueries
+
+**View 1**
+
+Input:
+SELECT * FROM CustomerTickets WHERE CustomerID = 1;
+
+Output:
+1	"Brandon Benson"	106120	"2024-07-23"
+1	"Brandon Benson"	109057	"2024-09-17"
+1	"Brandon Benson"	124121	"2024-07-31"
+1	"Brandon Benson"	142392	"2024-12-08"
+1	"Brandon Benson"	264137	"2024-09-04"
+
+Explanation:
+For Customer with CustomerID 1, we found all of their tickets and the dates of those flights
+
+Input:
+INSERT INTO CustomerTickets (CustomerID, Name, TicketID, DepartureDate)
+VALUES (50001, 'John Doe', 101, '2024-12-21');
+
+Explanation:
+We were trying to add a new customer Jonh Doe with Ticket 101
+
+Output (error):
+ERROR:  Views that do not select from a single table or view are not automatically updatable.cannot insert into view "customertickets" 
+ERROR:  cannot insert into view "customertickets"
+SQL state: 55000
+Detail: Views that do not select from a single table or view are not automatically updatable.
+Hint: To enable inserting into the view, provide an INSTEAD OF INSERT trigger or an unconditional ON INSERT DO INSTEAD rule.
+
+Input:
+UPDATE CustomerTickets
+SET Name = 'Jane Doe'
+WHERE CustomerID = 1;
+
+Explanation:
+We were trying to change the name of Customer 1 to Jane Doe
+
+Output:
+ERROR:  Views that do not select from a single table or view are not automatically updatable.cannot update view "customertickets" 
+ERROR:  cannot update view "customertickets"
+SQL state: 55000
+Detail: Views that do not select from a single table or view are not automatically updatable.
+Hint: To enable updating the view, provide an INSTEAD OF UPDATE trigger or an unconditional ON UPDATE DO INSTEAD rule.
+
+Input:
+DELETE FROM CustomerTickets WHERE TicketID = 101;
+
+Explanation:
+We were trying to delete the ticket 101 and the customer connected to it
+
+Output:
+ERROR:  Views that do not select from a single table or view are not automatically updatable.cannot delete from view "customertickets" 
+ERROR:  cannot delete from view "customertickets"
+SQL state: 55000
+Detail: Views that do not select from a single table or view are not automatically updatable.
+Hint: To enable deleting from the view, provide an INSTEAD OF DELETE trigger or an unconditional ON DELETE DO INSTEAD rule.
+
+
+
+**View 2**
+
+Input:
+SELECT * FROM FlightTicketCounts WHERE NumTickets > 130;
+
+Output:
+200402	"2024-07-12"	"PRK"	132
+200944	"2024-09-30"	"FJI"	136
+201413	"2024-06-16"	"CMR"	135
+200973	"2024-06-11"	"LKA"	139
+200885	"2024-09-03"	"ARG"	136
+201763	"2024-11-26"	"DZA"	132
+
+Explanation:
+Finds the flights with the most tickets (over 130)
+
+
+
+**View 3**
+
+Input: 
+SELECT * FROM JPNFlightCustomers WHERE NumCustomers > 50;
+
+Output: 
+201895	"2024-08-20"	"BGR"	96
+201427	"2024-07-17"	"IDN"	102
+200955	"2024-10-08"	"IDN"	94
+201860	"2024-12-15"	"BGR"	107
+201841	"2024-09-03"	"BGR"	108
+200889	"2024-09-01"	"IDN"	110
+201608	"2024-07-14"	"IDN"	99
+201943	"2024-12-26"	"BGR"	73
+201478	"2024-08-17"	"IDN"	87
+200437	"2024-09-09"	"IDN"	104
+200297	"2024-07-30"	"IDN"	111
+200462	"2024-07-19"	"BGR"	113
+201706	"2024-06-23"	"BGR"	94
+201334	"2024-07-04"	"BGR"	100
+201601	"2024-06-26"	"IDN"	94
+200006	"2024-09-19"	"IDN"	106
+200570	"2024-11-25"	"IDN"	99
+200846	"2024-09-12"	"BGR"	99
+200958	"2024-10-04"	"BGR"	91
+201086	"2024-10-14"	"BGR"	115
+201296	"2024-09-13"	"IDN"	93
+200783	"2024-09-23"	"BGR"	120
+200135	"2024-09-06"	"IDN"	100
+201408	"2024-11-08"	"IDN"	96
+200226	"2024-09-02"	"IDN"	96
+201668	"2024-09-01"	"IDN"	90
+200586	"2024-11-03"	"BGR"	97
+201104	"2024-11-12"	"BGR"	94
+201965	"2024-06-19"	"BGR"	113
+200756	"2024-07-30"	"IDN"	93
+201783	"2024-06-16"	"IDN"	107
+201863	"2024-08-15"	"IDN"	102
+200962	"2024-07-01"	"BGR"	97
+201270	"2024-07-29"	"BGR"	81
+200007	"2024-08-03"	"IDN"	98
+200077	"2024-08-11"	"BGR"	122
+
+Explanation:
+Finds the flights from JPN with more than 50 customers
+
+
+
+**View 4**
+
+Input:
+SELECT * FROM FlightSchedules WHERE Origin = 'JPN';
+
+Output:
+200077	"2024-08-11"	"JPN"	"BGR"	"nE3571"
+200462	"2024-07-19"	"JPN"	"BGR"	"nE3571"
+200586	"2024-11-03"	"JPN"	"BGR"	"nE3571"
+200783	"2024-09-23"	"JPN"	"BGR"	"nE3571"
+200846	"2024-09-12"	"JPN"	"BGR"	"nE3571"
+200958	"2024-10-04"	"JPN"	"BGR"	"nE3571"
+200962	"2024-07-01"	"JPN"	"BGR"	"nE3571"
+201086	"2024-10-14"	"JPN"	"BGR"	"nE3571"
+201104	"2024-11-12"	"JPN"	"BGR"	"nE3571"
+201270	"2024-07-29"	"JPN"	"BGR"	"nE3571"
+201334	"2024-07-04"	"JPN"	"BGR"	"nE3571"
+201706	"2024-06-23"	"JPN"	"BGR"	"nE3571"
+201841	"2024-09-03"	"JPN"	"BGR"	"nE3571"
+201860	"2024-12-15"	"JPN"	"BGR"	"nE3571"
+201895	"2024-08-20"	"JPN"	"BGR"	"nE3571"
+201943	"2024-12-26"	"JPN"	"BGR"	"nE3571"
+201965	"2024-06-19"	"JPN"	"BGR"	"nE3571"
+200006	"2024-09-19"	"JPN"	"IDN"	"aP1374"
+200007	"2024-08-03"	"JPN"	"IDN"	"aP1374"
+200135	"2024-09-06"	"JPN"	"IDN"	"aP1374"
+200226	"2024-09-02"	"JPN"	"IDN"	"aP1374"
+200297	"2024-07-30"	"JPN"	"IDN"	"aP1374"
+200437	"2024-09-09"	"JPN"	"IDN"	"aP1374"
+200570	"2024-11-25"	"JPN"	"IDN"	"aP1374"
+200756	"2024-07-30"	"JPN"	"IDN"	"aP1374"
+200889	"2024-09-01"	"JPN"	"IDN"	"aP1374"
+200955	"2024-10-08"	"JPN"	"IDN"	"aP1374"
+201296	"2024-09-13"	"JPN"	"IDN"	"aP1374"
+201408	"2024-11-08"	"JPN"	"IDN"	"aP1374"
+201427	"2024-07-17"	"JPN"	"IDN"	"aP1374"
+201478	"2024-08-17"	"JPN"	"IDN"	"aP1374"
+201601	"2024-06-26"	"JPN"	"IDN"	"aP1374"
+201608	"2024-07-14"	"JPN"	"IDN"	"aP1374"
+201668	"2024-09-01"	"JPN"	"IDN"	"aP1374"
+201783	"2024-06-16"	"JPN"	"IDN"	"aP1374"
+201863	"2024-08-15"	"JPN"	"IDN"	"aP1374"
+
+Explanation: 
+Finds the schedule for all flights from JPN
+
+
+Input:
+INSERT INTO FlightSchedules (FlightID, DepartureDate, Origin, Destination, FlightCode)
+VALUES (1, '2024-07-01', 'JPN', 'LON', 'JP1234');
+
+Explanation: 
+We were trying to make a new flight from JPN and give it a schedule
+
+Output:
+ERROR:  Views that do not select from a single table or view are not automatically updatable.cannot insert into view "flightschedules" 
+ERROR:  cannot insert into view "flightschedules"
+SQL state: 55000
+Detail: Views that do not select from a single table or view are not automatically updatable.
+Hint: To enable inserting into the view, provide an INSTEAD OF INSERT trigger or an unconditional ON INSERT DO INSTEAD rule.
+
+
+Input:
+UPDATE FlightSchedules
+SET Destination = 'PAR'
+WHERE FlightID = 1;
+
+Explanation: 
+We were trying to change the destination of flight 1
+
+Output:
+ERROR:  Views that do not select from a single table or view are not automatically updatable.cannot update view "flightschedules" 
+ERROR:  cannot update view "flightschedules"
+SQL state: 55000
+Detail: Views that do not select from a single table or view are not automatically updatable.
+Hint: To enable updating the view, provide an INSTEAD OF UPDATE trigger or an unconditional ON UPDATE DO INSTEAD rule.
+
+Input:
+DELETE FROM FlightSchedules WHERE FlightID = 1;
+
+Explanation: 
+We were trying to delete the schedule for flight 1
+
+Output:
+ERROR:  Views that do not select from a single table or view are not automatically updatable.cannot delete from view "flightschedules" 
+ERROR:  cannot delete from view "flightschedules"
+SQL state: 55000
+Detail: Views that do not select from a single table or view are not automatically updatable.
+Hint: To enable deleting from the view, provide an INSTEAD OF DELETE trigger or an unconditional ON DELETE DO INSTEAD rule.
+
+
+
