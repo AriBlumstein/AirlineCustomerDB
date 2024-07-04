@@ -9,7 +9,7 @@ FROM Customer c INNER JOIN Ticket t  ON (c.CustomerID=t.CustomerID)
 GROUP BY c.CustomerID
 ORDER BY c.CustomerID ASC;
 
--- Query3 - Get the average rating from each rewards customers
+-- Query 3 - Get the average rating from each rewards customers
 WITH RewardsTickets as (    
 	SELECT TicketID, CustomerID 
 	FROM Ticket                      
@@ -98,5 +98,26 @@ BEGIN;
 COMMIT;
 
 
+-- Query 9 - Retrieve customer details along with their flight information
+SELECT c.CustomerID, c.Name, f.FlightId, fi.DepartureDate, fi.Origin, fi.Destination
+FROM Customer c
+JOIN Ticket t ON c.CustomerID = t.CustomerID
+JOIN Flight f ON t.FlightId = f.FlightId
+JOIN FlightInfo fi ON fi.FlightCode = f.FlightCode;
 
 
+-- Query 10 - Retrieve flights with the number of customers booked from JPN
+SELECT f.FlightId, f.DepartureDate, fi.Origin, fi.Destination, COUNT(t.CustomerId) AS num_customers
+FROM Flight f
+JOIN Ticket t ON f.FlightId = t.FlightId
+JOIN FlightInfo fi ON fi.FlightCode = f.FlightCode
+WHERE fi.Origin = 'JPN'
+GROUP BY f.FlightId, f.DepartureDate, fi.Origin, fi.Destination;
+
+
+-- Query 11 - Retrieve flights and the number of bookings for each flight
+SELECT f.FlightId, f.DepartureDate, fi.Destination, COUNT(t.CustomerId) AS num_bookings
+FROM Flight f
+LEFT JOIN Ticket t ON f.FlightId = t.FlightId
+JOIN FlightInfo fi ON fi.FlightCode = f.FlightCode
+GROUP BY f.FlightId, f.DepartureDate, fi.Destination;
