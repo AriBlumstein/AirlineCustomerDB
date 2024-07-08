@@ -290,4 +290,84 @@ We also observed that the new constraints that we added to these tables caused a
 
 Full timing logs for these 3 queries can be found **[here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/FunctionsTiming.log).**
 
+## Triggers
+
+We implemented two triggers to enhance the functionality of the airline database: The Triggers are created in **[this](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/Triggers.sql)** file.
+
+### 1. Update Miles Flown Trigger
+
+This trigger automatically updates the MilesFlown and Status for a RewardsCustomer when a new ticket is purchased.
+
+- **Trigger Name**: `update_miles_flown_trigger`
+- **Activated**: After INSERT on the Ticket table
+- **Function**: `update_miles_flown()`
+
+The trigger performs the following actions:
+
+- Adds the flight distance to the customer's MilesFlown (currently uses a placeholder of 1000 miles per flight)
+- Updates the customer's Status based on their new MilesFlown:
+  - Gold: 100,000 miles or more
+  - Silver: 50,000 to 99,999 miles
+  - None: Less than 50,000 miles
+
+### 2. Ticket Change Journal Trigger
+
+This trigger maintains a journal of all changes made to tickets, including inserts, updates, and deletes.
+
+- **Trigger Name**: `journal_ticket_changes_trigger`
+- **Activated**: After INSERT, UPDATE, or DELETE on the Ticket table
+- **Function**: `journal_ticket_changes()`
+
+The trigger logs the following information in the TicketChangeJournal table:
+
+- TicketID
+- Type of change (INSERT, UPDATE, or DELETE)
+- Timestamp of the change
+- Old and new values for TicketClass and SeatNumber (for updates)
+
+### Example Outputs
+
+After running the queries in [TriggerQueries.sql](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/TriggerQueries.sql), here are the results:
+
+1. After inserting a new ticket:
+
+RewardsCustomer table:
+
+| CustomerID | Status | SignUpDate  | MilesFlown | 
+|------------|--------|-------------|------------|
+| 43570443   | None   | 2021-11-23  | 8264       |
+
+Ticket table:
+
+| TicketID | TicketClass | SeatNumber | DietaryRestriction | LuggageNumber | OversizedLuggage | CustomerID | FlightID | Zone | Assistance |
+|----------|-------------|------------|---------------------|---------------|------------------|------------|----------|------|------------|
+| 1001     | Business    | 10B        | None                | 2             | 1                | 2          | 200005   | A    | None       |
+
+2. After updating the ticket:
+
+Ticket table:
+
+| TicketID | TicketClass | SeatNumber | DietaryRestriction | LuggageNumber | OversizedLuggage | CustomerID | FlightID | Zone | Assistance |
+|----------|-------------|------------|---------------------|---------------|------------------|------------|----------|------|------------|
+| 1001     | FirstClass  | 16B        | None                | 2             | 1                | 2          | 200005   | A    | None       |
+
+3. After deleting the ticket, the TicketChangeJournal shows:
+
+| JournalID | TicketID | ChangeType | ChangeTimestamp           | OldTicketClass | NewTicketClass | OldSeatNumber | NewSeatNumber |
+|-----------|----------|------------|---------------------------|----------------|----------------|----------------|---------------|
+| 1         | 1001     | INSERT     | 2024-07-08 22:35:01.60726 | NULL           | Business       | NULL           | 10B           |
+| 2         | 1001     | UPDATE     | 2024-07-08 22:36:47.04075 | Business       | FirstClass     | 10B            | 16B           |
+| 3         | 1001     | DELETE     | 2024-07-08 22:37:25.781621| FirstClass     | NULL           | 16B            | NULL          |
+
+These results demonstrate the effectiveness of our triggers:
+
+1. The INSERT operation added a new ticket to the Ticket table. Note that the RewardsCustomer table wasn't updated as expected - this might indicate that the `update_miles_flown` trigger didn't fire or the customer with ID 2 doesn't exist in the RewardsCustomer table.
+
+2. The UPDATE operation successfully changed the TicketClass from 'Business' to 'FirstClass' and the SeatNumber from '10B' to '16B'.
+
+3. The DELETE operation removed the ticket from the Ticket table.
+
+4. The TicketChangeJournal recorded all three operations (INSERT, UPDATE, and DELETE) with their respective details and timestamps.
+
+Note: The Update Miles Flown trigger currently uses a placeholder value of 1000 miles for all flights. In a real-world scenario, we would calculate the actual distance based on the flight's origin and destination.
 

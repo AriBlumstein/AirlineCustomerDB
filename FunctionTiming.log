@@ -1,0 +1,75 @@
+Query 3
+
+"Sort  (cost=168.02..168.52 rows=200 width=36) (actual time=45.457..45.483 rows=1143 loops=1)"
+"  Sort Key: rewardstickets.customerid"
+"  Sort Method: quicksort  Memory: 93kB"
+"  ->  HashAggregate  (cost=157.38..160.38 rows=200 width=36) (actual time=45.024..45.239 rows=1143 loops=1)"
+"        Group Key: rewardstickets.customerid"
+"        Batches: 1  Memory Usage: 337kB"
+"        ->  Hash Join  (cost=139.75..152.38 rows=1000 width=8) (actual time=39.728..44.783 rows=1177 loops=1)"
+"              Hash Cond: (rewardstickets.ticketid = review.ticketid)"
+"              ->  Function Scan on rewardstickets  (cost=0.25..10.25 rows=1000 width=8) (actual time=39.286..41.149 rows=79803 loops=1)"
+"              ->  Hash  (cost=102.00..102.00 rows=3000 width=8) (actual time=0.418..0.419 rows=3000 loops=1)"
+"                    Buckets: 4096  Batches: 1  Memory Usage: 150kB"
+"                    ->  Seq Scan on review  (cost=0.00..102.00 rows=3000 width=8) (actual time=0.013..0.276 rows=3000 loops=1)"
+"Planning Time: 0.581 ms"
+"Execution Time: 47.590 ms"
+
+
+
+Query 4
+
+"Sort  (cost=27.64..27.71 rows=25 width=76) (actual time=388.267..388.536 rows=10805 loops=1)"
+"  Sort Key: cf.total_flights DESC"
+"  Sort Method: quicksort  Memory: 1042kB"
+"  ->  Hash Join  (cost=13.06..27.06 rows=25 width=76) (actual time=385.514..387.167 rows=10805 loops=1)"
+"        Hash Cond: (cf.customerid = td.customerid)"
+"        ->  Function Scan on customerflights cf  (cost=0.25..10.25 rows=1000 width=44) (actual time=205.623..205.876 rows=10805 loops=1)"
+"        ->  Hash  (cost=12.75..12.75 rows=5 width=36) (actual time=179.866..179.867 rows=49069 loops=1)"
+"              Buckets: 65536 (originally 1024)  Batches: 1 (originally 1)  Memory Usage: 2429kB"
+"              ->  Function Scan on ticketdetails td  (cost=0.25..12.75 rows=5 width=36) (actual time=164.336..177.027 rows=49069 loops=1)"
+"                    Filter: (rn = 1)"
+"                    Rows Removed by Filter: 145113"
+"Planning Time: 0.115 ms"
+"Execution Time: 389.990 ms"
+
+
+
+Query 8
+
+"Delete on petcustomer  (cost=390.75..394.75 rows=0 width=0) (actual time=120.415..120.416 rows=0 loops=1)"
+"  ->  Seq Scan on petcustomer  (cost=390.75..394.75 rows=50 width=6) (actual time=120.330..120.366 rows=2 loops=1)"
+"        Filter: ((NOT (hashed SubPlan 1)) AND (NOT (hashed SubPlan 2)))"
+"        Rows Removed by Filter: 198"
+"        SubPlan 1"
+"          ->  Function Scan on flyingcustomers  (cost=0.25..10.25 rows=1000 width=4) (actual time=112.795..113.938 rows=49069 loops=1)"
+"        SubPlan 2"
+"          ->  Seq Scan on rewardscustomer  (cost=0.00..328.00 rows=20000 width=4) (actual time=0.017..0.859 rows=20000 loops=1)"
+"Planning Time: 1.485 ms"
+"Execution Time: 121.214 ms"
+
+"Delete on identification  (cost=390.75..2080.75 rows=0 width=0) (actual time=82.449..82.450 rows=0 loops=1)"
+"  ->  Seq Scan on identification  (cost=390.75..2080.75 rows=17500 width=6) (actual time=70.176..79.665 rows=796 loops=1)"
+"        Filter: ((NOT (hashed SubPlan 1)) AND (NOT (hashed SubPlan 2)))"
+"        Rows Removed by Filter: 69204"
+"        SubPlan 1"
+"          ->  Function Scan on flyingcustomers  (cost=0.25..10.25 rows=1000 width=4) (actual time=62.750..63.841 rows=49069 loops=1)"
+"        SubPlan 2"
+"          ->  Seq Scan on rewardscustomer  (cost=0.00..328.00 rows=20000 width=4) (actual time=0.016..0.857 rows=20000 loops=1)"
+"Planning Time: 0.446 ms"
+"Execution Time: 82.758 ms"
+
+"Delete on customer  (cost=390.75..1449.75 rows=0 width=0) (actual time=81.076..81.076 rows=0 loops=1)"
+"  ->  Seq Scan on customer  (cost=390.75..1449.75 rows=12500 width=6) (actual time=72.208..79.261 rows=571 loops=1)"
+"        Filter: ((NOT (hashed SubPlan 1)) AND (NOT (hashed SubPlan 2)))"
+"        Rows Removed by Filter: 49429"
+"        SubPlan 1"
+"          ->  Function Scan on flyingcustomers  (cost=0.25..10.25 rows=1000 width=4) (actual time=64.633..65.729 rows=49069 loops=1)"
+"        SubPlan 2"
+"          ->  Seq Scan on rewardscustomer  (cost=0.00..328.00 rows=20000 width=4) (actual time=0.016..0.896 rows=20000 loops=1)"
+"Planning Time: 0.112 ms"
+"Trigger for constraint identification_customerid_fkey: time=57.229 calls=571"
+"Trigger for constraint petcustomer_customerid_fkey: time=7.580 calls=571"
+"Trigger for constraint rewardscustomer_customerid_fkey: time=3.822 calls=571"
+"Trigger for constraint ticket_customerid_fkey: time=3.927 calls=571"
+"Execution Time: 154.023 ms"
