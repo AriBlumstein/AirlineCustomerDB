@@ -264,3 +264,16 @@ ORDER BY TotalCustomers DESC;
 ```
 
 ![View3PieChart](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/View3PieChart.png?raw=true)
+
+
+## Functions
+
+To make our queries more readable, we created functions that decreased complexity for various queries.
+
+The various functions created accomplish the following:
+1. Function 1: Return all customers that have flown within a specific time range (from now minus the pass parameter to now) and have no future flights. (Used in Query 8)
+2. Function 2: Return all of the tickets purchased by rewards customers (Used in Query 3)
+3. Function 3: Return the ticket details for each customer, finding how many times they flew to each destination, and ranking each destination by how many times they flew there. (Used in Query 4)
+4. Function 4: Return the customer details of customers that have flown more than a specific amount of flights (Used in Query 4)
+
+The creation of the functions can be viewed **[here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/Functions.sql).**
