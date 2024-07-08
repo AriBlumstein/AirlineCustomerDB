@@ -13,13 +13,13 @@ JOIN FlightInfo FI ON F.FlightCode = FI.FlightCode
 LEFT JOIN Ticket T ON F.FlightID = T.FlightID
 GROUP BY F.FlightID, F.DepartureDate, FI.Destination;
 
--- View 3: Flights with the Number of Customers from JPN (for Japan Flight Analysts)
-CREATE OR REPLACE VIEW JPNFlightCustomers AS
+-- View 3: Flights with the Number of Customers from our Hub, ZMB (for Hub Flight Analysts)
+CREATE OR REPLACE VIEW HubFlightCustomers AS
 SELECT F.FlightID, F.DepartureDate, FI.Destination, COUNT(T.CustomerID) AS NumCustomers
 FROM Flight F
 JOIN FlightInfo FI ON F.FlightCode = FI.FlightCode
 JOIN Ticket T ON F.FlightID = T.FlightID
-WHERE FI.Origin = 'JPN'
+WHERE FI.Origin = 'ZMB'
 GROUP BY F.FlightID, F.DepartureDate, FI.Origin, FI.Destination;
 
 -- View 4: Detailed Flight Schedules (for Flight Schedulers)

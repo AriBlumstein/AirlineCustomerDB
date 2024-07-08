@@ -223,7 +223,7 @@ We created views for different user subgroups:
 
 1.	**Customer Service Representatives**: Need details on customers and their bookings to assist with customer inquiries.
 2.	**Flight Managers**: Need to know the number of bookings for each flight to manage capacity and resources.
-3.	**Japan Flight Analysts**: Need to analyze the number of customers flying from JPN, because this is a majot hub for our airline.
+3.	**Hub Flight Analysts**: Need to analyze the number of customers flying from ZMB, because this is a major hub for our airline.
 4.	**Flight Schedulers**: Need detailed schedules for all flights.
 
 #### We created the views [here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/Views.sql).
@@ -234,3 +234,33 @@ For views 1 and 4 we weren't sure if UPDATE and DELETE queries would fail, so we
 For views 2 and 3, we knew the UPDATE and DELETE queries wouldn't work because they contained aggregates, so we didn't even try those.
 
 The logs and explanations of what the queries were trying to accomplish is **[here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/viewQueryLogs.log).**
+
+## Visualizations
+
+### Visualization for View 2
+
+This query shows the total number of tickets sold for each destination for upcoming flights. It's useful for understanding popular destinations and allocating resources.
+
+``` SQL
+SELECT Destination, SUM(NumTickets) AS TotalTickets
+FROM FlightTicketCounts
+WHERE DepartureDate >= CURRENT_DATE
+GROUP BY Destination
+ORDER BY TotalTickets DESC;
+```
+
+![View2BarChart](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/View2Chart.png?raw=true)
+
+### Visualization for View 3
+
+This query shows the number of customers flying from our hub, Hamburg to various destinations for upcoming flights. It's helpful for analyzing the market and planning routes from our hub.
+
+``` SQL
+SELECT Destination, SUM(NumCustomers) AS TotalCustomers
+FROM HubFlightCustomers
+WHERE DepartureDate >= CURRENT_DATE
+GROUP BY Destination
+ORDER BY TotalCustomers DESC;
+```
+
+![View3PieChart](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/View3Chart.png?raw=true)

@@ -19,18 +19,18 @@ DELETE FROM CustomerTickets WHERE TicketID = 101;
 SELECT * FROM FlightTicketCounts WHERE NumTickets > 130;
 
 
--- View 3: OriginFlightCustomers
+-- View 3: HubFlightCustomers
 -- SELECT query
-SELECT * FROM JPNFlightCustomers WHERE NumCustomers > 50;
+SELECT * FROM HubFlightCustomers WHERE NumCustomers > 50;
 
 
 -- View 4: FlightSchedules
 -- SELECT query
-SELECT * FROM FlightSchedules WHERE Origin = 'JPN';
+SELECT * FROM FlightSchedules WHERE Origin = 'ZMB';
 
 -- INSERT
 INSERT INTO FlightSchedules (FlightID, DepartureDate, Origin, Destination, FlightCode)
-VALUES (1, '2024-07-01', 'JPN', 'LON', 'JP1234');
+VALUES (1, '2024-07-01', 'ZMB', 'LON', 'ZM1234');
 
 -- UPDATE
 UPDATE FlightSchedules
