@@ -249,7 +249,7 @@ GROUP BY Destination
 ORDER BY TotalTickets DESC;
 ```
 
-![View2BarChart](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/View2Chart.png?raw=true)
+![View2BarChart](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/View2BarChart.png?raw=true)
 
 ### Visualization for View 3
 
@@ -263,4 +263,4 @@ GROUP BY Destination
 ORDER BY TotalCustomers DESC;
 ```
 
-![View3PieChart](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/View3Chart.png?raw=true)
+![View3PieChart](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/View3PieChart.png?raw=true)
