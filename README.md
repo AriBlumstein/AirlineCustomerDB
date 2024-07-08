@@ -288,7 +288,7 @@ The creation of the functions can be viewed **[here](https://github.com/AriBlums
 
 We also observed that the new constraints that we added to these tables caused a longer execution time.
 
-Full timing logs for these 3 queries can be found **[here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/FunctionsTiming.log).**
+Full timing logs for these 3 queries can be found **[here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/FunctionTiming.log).**
 
 ## Triggers
 
@@ -333,9 +333,9 @@ After running the queries in [TriggerQueries.sql](https://github.com/AriBlumstei
 
 RewardsCustomer table:
 
-| CustomerID | Status | SignUpDate  | MilesFlown | 
-|------------|--------|-------------|------------|
-| 43570443   | None   | 2021-11-23  | 8264       |
+| MemberID   | Status | SignUpDate  | MilesFlown | CustomerID |
+|------------|--------|-------------|------------|------------|
+| 43570443   | None   | 2021-11-23  | 8264       |  2         |
 
 Ticket table:
 
