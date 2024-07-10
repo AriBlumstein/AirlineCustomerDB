@@ -221,23 +221,23 @@ We created views for different user subgroups:
 
 #### User Sub-Groups:
 
-1.	**Customer Service Representatives**: Need details on customers and their bookings to assist with customer inquiries.
-2.	**Flight Managers**: Need to know the number of bookings for each flight to manage capacity and resources.
-3.	**Hub Flight Analysts**: Need to analyze the number of customers flying from ZMB, because this is a major hub for our airline.
-4.	**Flight Schedulers**: Need detailed schedules for all flights.
+1.	**Customer Service Representatives**: Need details on customers and their bookings to assist with customer inquiries. View Name: CustomerTickets.
+2.	**Flight Managers**: Need to know the number of bookings for each flight to manage capacity and resources. View Name: FlightTicketCounts.
+3.	**Hub Flight Analysts**: Need to analyze the number of customers flying from ZMB, because this is a major hub for our airline. View Name: HubFlightCustomers
+4.	**Flight Schedulers**: Need detailed schedules for all flights. View Name: FlightSchedules
 
 #### We created the views [here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/Views.sql).
 
 To test these views we implemented various SELECT, UPDATE, and DELETE queries on each view. The queries are **[here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/ViewQueries.sql).**
 
-For views 1 and 4 we weren't sure if UPDATE and DELETE queries would fail, so we tried them, and they ended up failing due to the fact that they were based on multiple tables. 
-For views 2 and 3, we knew the UPDATE and DELETE queries wouldn't work because they contained aggregates, so we didn't even try those.
+For views 1 and 4 we were not sure if UPDATE or DELETE queries would fail, so we tried them, and they ended up failing due to the fact that they were based on multiple tables. 
+For views 2 and 3, we knew the UPDATE and DELETE queries would not work because they contained aggregates, so we did not even try those.
 
-The logs and explanations of what the queries were trying to accomplish is **[here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/viewQueryLogs.log).**
+The logs and explanations of what the queries were trying to accomplish are **[here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/viewQueryLogs.log).**
 
 ## Visualizations
 
-### Visualization for View 2
+### Visualization for View 2: FlightTicketCounts
 
 This query shows the total number of tickets sold for each destination for upcoming flights. It's useful for understanding popular destinations and allocating resources.
 
@@ -251,9 +251,9 @@ ORDER BY TotalTickets DESC;
 
 ![View2BarChart](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/View2BarChart.png?raw=true)
 
-### Visualization for View 3
+### Visualization for View 3: HubFlightCustomers
 
-This query shows the number of customers flying from our hub, Hamburg to various destinations for upcoming flights. It's helpful for analyzing the market and planning routes from our hub.
+This query shows the number of customers flying from our hub, Hamburg, to various destinations for upcoming flights. It's helpful for analyzing the market and planning routes from our hub.
 
 ``` SQL
 SELECT Destination, SUM(NumCustomers) AS TotalCustomers
@@ -268,7 +268,7 @@ ORDER BY TotalCustomers DESC;
 
 ## Functions
 
-To make our queries more readable, we created functions that decreased complexity for various queries.
+To make our queries more readable, we created functions that decreased their complexity.
 
 The various functions created accomplish the following:
 
@@ -279,11 +279,11 @@ The various functions created accomplish the following:
 
 The creation of the functions can be viewed **[here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/Functions.sql).**
 
-#### Query timing analyzation for queries that used function
-| Query Number | Runtime Without Function (ms) | Runtime With Functions (ms)| Function Used         |
+#### Query timing analyzation for queries that used functions
+| Query Number | Runtime Without Functions (ms) | Runtime With Functions (ms)| Functions Used         |
 |--------------|-------------------------------|----------------------------|-----------------------|
 | 3            | 1.61                          | 47.59                      | RewardsTickets()      |
-| 4            | 319.23                        | 389.99                     | CustomerFlights(), TicketDetails() |
+| 4            | 319.23                        | 389.99                     | CustomerFlights(integer), TicketDetails() |
 | 8            | 261.332                       | 357.995                    | FlyingCustomers(interval) (3)                      |
 
 We also observed that the new constraints that we added to these tables caused a longer execution time.
@@ -331,10 +331,10 @@ After running the queries in [TriggerQueries.sql](https://github.com/AriBlumstei
 
 1. After inserting a new ticket:
 
-RewardsCustomer table:
+RewardsCustomer table: 
 
 | MemberID   | Status | SignUpDate  | MilesFlown | CustomerID |
-|------------|--------|-------------|------------|------------|
+|------------|--------|-------------|------------|------------|    Previously, Customer2 had 7264 miles.
 | 43570443   | None   | 2021-11-23  | 8264       |  2         |
 
 Ticket table:
@@ -361,7 +361,7 @@ Ticket table:
 
 These results demonstrate the effectiveness of our triggers:
 
-1. The INSERT operation added a new ticket to the Ticket table. Note that the RewardsCustomer table wasn't updated as expected - this might indicate that the `update_miles_flown` trigger didn't fire or the customer with ID 2 doesn't exist in the RewardsCustomer table.
+1. The INSERT operation added a new ticket to the Ticket table, and added 1000 miles to the rewards customer with ID 2.
 
 2. The UPDATE operation successfully changed the TicketClass from 'Business' to 'FirstClass' and the SeatNumber from '10B' to '16B'.
 
