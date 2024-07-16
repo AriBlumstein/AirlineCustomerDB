@@ -253,7 +253,7 @@ ORDER BY TotalTickets DESC;
 
 ### Visualization for View 3: HubFlightCustomers
 
-This query shows the number of customers flying from our hub, Hamburg, to various destinations for upcoming flights. It's helpful for analyzing the market and planning routes from our hub.
+This query shows the number of customers flying from our hub, ZMB, to various destinations for upcoming flights. It's helpful for analyzing the market and planning routes from our hub.
 
 ``` SQL
 SELECT Destination, SUM(NumCustomers) AS TotalCustomers
