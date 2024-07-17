@@ -334,8 +334,10 @@ After running the queries in [TriggerQueries.sql](https://github.com/AriBlumstei
 RewardsCustomer table: 
 
 | MemberID   | Status | SignUpDate  | MilesFlown | CustomerID |
-|------------|--------|-------------|------------|------------|    Previously, Customer2 had 7264 miles.
+|------------|--------|-------------|------------|------------|    
 | 43570443   | None   | 2021-11-23  | 8264       |  2         |
+
+Previously, Customer 2 had 7264 miles.
 
 Ticket table:
 
