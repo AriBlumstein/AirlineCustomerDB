@@ -11,14 +11,14 @@ CREATE FOREIGN TABLE foreign_flight (
     ArrivalTime TIMESTAMP NOT NULL,
     Capacity INT NOT NULL
 )
- SERVER foreign_server
+ SERVER TicketingServer
  OPTIONS (schema_name 'public',
  table_name 'flight');
 
 
 
 CREATE FOREIGN TABLE foreign_ticket (
- 	TicketNumber SERIAL PRIMARY KEY,
+ 	TicketNumber SERIAL,
     FlightNumber INT,
     SeatNumber VARCHAR(3),
     Price FLOAT,
@@ -26,7 +26,7 @@ CREATE FOREIGN TABLE foreign_ticket (
     Class ticket_class,
     PassengerID INT
 )
- SERVER foreign_server
+ SERVER TicketingServer
  OPTIONS (schema_name 'public',
  table_name 'ticket');
 
