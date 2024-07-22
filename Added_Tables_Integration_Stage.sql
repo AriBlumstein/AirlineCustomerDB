@@ -4,4 +4,10 @@ CREATE TABLE CodeToLocation
 	City varchar
 );
 
+CREATE TABLE CustomerToPassenger
+(
+	CustomerID INTEGER,
+	PassengerID INTEGER
+)
+
 
