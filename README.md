@@ -383,7 +383,7 @@ Note: The Update Miles Flown trigger currently uses a placeholder value of 1000 
 
 ![foreignDSD](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/Foreign_DSD.jpg)
 
-The json file for the foreign ERD cab be found **[here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/Foreign_ERD.json)**.
+The json file for the foreign ERD can be found **[here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/Foreign_ERD.json)**.
 
 #### Created new database in postgres called AirlineDB (to match their name)
 
