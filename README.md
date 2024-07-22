@@ -480,6 +480,8 @@ All the additional tables we created are in the [Added_Tables_Integration_Stage.
 
 And the complex queries to copy the data based on various criteria in order to make the databases match are [here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/alter_tables.sql).
 
+After completing the merge, we were able to drop the foreign tables as they were no longer needed, and we renamed any table that began with 'local' to its real name as it was strictly apart of our database. These actions can be viewed **[here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/DropForeignTables.sql)**.
+
 #### Merged ERD and DSD
 
 After our integration process, these are the resulting ERD and DSD of our new database with the foreign database merged in.
