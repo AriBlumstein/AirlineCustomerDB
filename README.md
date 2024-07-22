@@ -32,6 +32,8 @@ A feature of our system also allows any value for the country field, to allow an
 
 ![DSDimage](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/DSDimage.png?raw=true)
 
+The json file for our ERD can be found **[here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/AirlineCustomer.json)**.
+
 
 ## Repository Files
 
@@ -381,6 +383,8 @@ Note: The Update Miles Flown trigger currently uses a placeholder value of 1000 
 
 ![foreignDSD](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/Foreign_DSD.jpg)
 
+The json file for the foreign ERD cab be found **[here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/Foreign_ERD.json)**.
+
 #### Created new database in postgres called AirlineDB (to match their name)
 
 Ran restore, but got an error because they used a role that we don't have, so we ran restore with `--no-owner` flag and then it worked.
@@ -483,3 +487,6 @@ After our integration process, these are the resulting ERD and DSD of our new da
 ![mergedERD](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/Merged_ERD.png)
 
 ![mergedDSD](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/Merged_DSD.png)
+
+The json file for the merged ERD can be found **[here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/Merged_ERD.json)**.
+
