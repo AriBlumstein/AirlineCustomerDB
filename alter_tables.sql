@@ -20,7 +20,7 @@ JOIN numbered_foreign_flight ff ON nfi.row_num = ff.row_num --where the row numb
 WHERE fi.flightcode = nfi.flightcode;
 
 
---Alter our flight info to add flight numbers from their flight table
+--Alter our flightInfo to add flight numbers from their flight table
 ALTER TABLE flight
 ADD COLUMN flightnumber INTEGER;
 WITH flight_details AS (
@@ -84,8 +84,103 @@ WHERE f.flightid = rf.flightid;
 
 
 
+--Alter Ticket table and add booking
+-- Step 1: Create a new local Booking table in the customers database
+-- This command is in Added_Tables_Integration_stage.sql
+
+-- Step 2: Alter the existing Ticket table in the customers database
+ALTER TABLE Ticket
+ADD COLUMN OriginalTicketNumber INT,
+ADD COLUMN Price FLOAT,
+ADD COLUMN Status ticket_status,
+ADD COLUMN BookingID INT,
+ADD FOREIGN KEY (BookingID) REFERENCES Local_Booking(BookingID);
+
+ALTER TABLE Ticket DROP CONSTRAINT unique_seat;
+
+-- Step 3: Insert data into the new Local_Booking table
+INSERT INTO Local_Booking (BookingDate, Status, Cost, CustomerID)
+SELECT 
+    b.BookingDate,
+    b.Status::booking_status,
+    b.Cost,
+    COALESCE(ctp.CustomerID, b.PassengerID) -- Use existing CustomerID if available, otherwise use PassengerID
+FROM 
+    Booking b -- This refers to the foreign Booking table
+LEFT JOIN 
+    CustomerToPassenger ctp ON (ctp.PassengerID = b.PassengerID);
+
+-- Step 4: Insert data from foreign_ticket into the customers Ticket table
+INSERT INTO Ticket (
+    TicketID, 
+    TicketClass, 
+    SeatNumber, 
+    CustomerID, 
+    FlightID, 
+    Zone,
+    OriginalTicketNumber,
+    Price,
+    Status,
+    BookingID
+)
+SELECT 
+    nextval('ticket_id_seq'), -- Assuming you have a sequence for TicketID
+    CASE 
+        WHEN ft.Class = 'Economy' THEN 'Economy'::ticketClass
+        WHEN ft.Class = 'EconPlus' THEN 'Premium'::ticketClass
+        WHEN ft.Class = 'Business' THEN 'Business'::ticketClass
+        WHEN ft.Class = 'First' THEN 'FirstClass'::ticketClass
+        ELSE 'Economy'::ticketClass -- Default to Economy if there's an unexpected value
+    END AS TicketClass,
+    ft.SeatNumber,
+    COALESCE(ctp.CustomerID, ft.PassengerID), -- Use existing CustomerID if available, otherwise use PassengerID
+    f.FlightID,    -- Assuming we have a way to map FlightNumber to FlightID
+    (ARRAY['A', 'B', 'C', 'D'])[FLOOR(RANDOM() * 4) + 1],  -- Pick random zone
+    ft.TicketNumber,
+    ft.Price,
+    ft.Status::ticket_status,
+    lb.BookingID
+FROM 
+    foreign_ticket ft
+LEFT JOIN 
+    CustomerToPassenger ctp ON (ctp.PassengerID = ft.PassengerID)
+JOIN 
+    Foreign_Flight ff ON ft.FlightNumber = ff.FlightNumber
+JOIN 
+    Flight f ON f.flightNumber = ff.FlightNumber
+LEFT JOIN LATERAL (
+    SELECT BookingID
+    FROM Local_Booking
+    WHERE CustomerID = COALESCE(ctp.CustomerID, ft.PassengerID)
+    AND BookingDate = (
+        SELECT BookingDate 
+        FROM Booking 
+        WHERE TicketNumber = ft.TicketNumber 
+        ORDER BY BookingDate DESC 
+        LIMIT 1
+    )
+    LIMIT 1
+) lb ON true;
 
 
 
 
 
+-- Copy data from foreign CodeShare table to Local_CodeShare
+INSERT INTO Local_CodeShare (FlightNumber, MarketingAirline, Restrictions)
+SELECT FlightNumber, MarketingAirline, Restrictions
+FROM CodeShare;
+
+
+
+-- Copy data from foreign Package table to Local_Package
+INSERT INTO Local_Package (PackageName, Price, StartDate, CarModel, ReturnDate)
+SELECT PackageName, Price, StartDate, CarModel, ReturnDate
+FROM Package;
+
+
+
+-- Copy data from foreign Passenger table to Local_Passenger
+INSERT INTO Local_Passenger (Name, ContactInfo)
+SELECT Name, ContactInfo
+FROM Passenger;
