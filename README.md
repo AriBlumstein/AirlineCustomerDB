@@ -334,7 +334,7 @@ After running the queries in [TriggerQueries.sql](https://github.com/AriBlumstei
 RewardsCustomer table: 
 
 | MemberID   | Status | SignUpDate  | MilesFlown | CustomerID |
-|------------|--------|-------------|------------|------------|    
+|------------|--------|-------------|------------|------------|
 | 43570443   | None   | 2021-11-23  | 8264       |  2         |
 
 Previously, Customer 2 had 7264 miles.
@@ -372,4 +372,101 @@ These results demonstrate the effectiveness of our triggers:
 4. The TicketChangeJournal recorded all three operations (INSERT, UPDATE, and DELETE) with their respective details and timestamps.
 
 Note: The Update Miles Flown trigger currently uses a placeholder value of 1000 miles for all flights. In a real-world scenario, we would calculate the actual distance based on the flight's origin and destination.
+
+## Integration
+
+#### Created new database in postgres called AirlineDB (to match their name)
+
+Ran restore, but got an error because they used a role that we don't have, so we ran restore with `--no-owner` flag and then it worked.
+
+We used: `CREATE EXTENSION postgres_fdw;`
+in the psql tool to enable the postgres foreign database wrapper
+
+And then we used the following command to prepare the connection to the foreign database:
+
+```sql
+CREATE SERVER TicketingServer
+FOREIGN DATA WRAPPER postgres_fdw
+OPTIONS (host 'localhost',
+port '5432',
+dbname 'AirlineDB');
+```
+
+And finally, we needed to create a user mapping with this command (and put our postgres user password in place of password):
+
+```sql
+CREATE USER MAPPING FOR postgres
+SERVER ticketingserver
+OPTIONS (user 'postgres', password 'password');
+```
+
+#### Now we are going to start copying the foreign data into our database.
+
+The first thing we need to do do, is create the enums from the foreign database:
+
+```sql
+CREATE TYPE ticket_class AS ENUM ('Economy', 'EconPlus', 'Business', 'First');
+CREATE TYPE ticket_status AS ENUM ('Booked', 'Cancelled', 'CheckedIn', 'Boarded', 'InFlight', 'Landed', 'NoShow' );
+CREATE TYPE booking_status AS ENUM ('Confirmed', 'Cancelled', 'Pending', 'Complete');
+```
+
+Now we want to copy the foreign tables. We start with the tables which have different names than the ones in our database, and we can use `IMPORT FOREIGN SCHEMA`.
+
+Then we manually copy the ticket and flight tables using CREATE FOREIGN TABLE, in order not to have a naming conflict.
+
+The commands are in: [ImportForeignDatabase.sql](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/ImportForeignDatabase.sql)
+
+When trying to view the foreign ticket table we got an error:
+
+```
+ERROR:  invalid input value for enum ticket_status: "Standby"
+CONTEXT:  column "status" of foreign table "foreign_ticket" 
+```
+
+So to fix this, we added "Standby" to the ticket_status enum we imported from the foreign database.
+
+### Combining the databases
+
+We first made a list of locations to match up with airport codes to use as a lookup table to help combine the flight table from the other database.
+
+And we copied in the data with:
+
+`\copy CodeToLocation FROM 'path/to/airport codes.csv' DELIMITER ',' CSV
+HEADER;`
+
+#### New Tables
+
+First we combined our FlightInfo table with the foreign Flight table to add capacity to our flights.
+
+Then we combined our flight table with the foreign Flight table to add the flightNumber, but we could not line up enough of their destinations and locations with our destinations and locations, so some rows have a null flight number, to ensure we don't lose any of the flights we had originally. We used the newly made CodeToLocation table we just made as a lookup.
+
+Then for tickets we needed to create another lookup table for customerID to passengerID.
+
+The CSV Files for this lookup and the revious ones are [here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/integration_database_random_data).
+
+We created the new table CustomerToPassenger, and copied the data:
+
+`\copy customertopassenger from 'path/to/customer_to_passanger.csv' delimiter ',' CSV HEADER;`
+
+ Then we had to create a serial sequence for the continuation of the ticket ids:
+
+ ```sql
+CREATE SEQUENCE ticket_id_seq
+START WITH 300001
+INCREMENT BY 1;
+```
+
+And then we ran the script we wrote to create and copy most of the booking table and then add the ticketNumbers from the foreign ticket table to our ticket table. **This took 24 minutes to run!**
+
+We are not inlcuding the foreign seat table, because that information is all included in our ticket table. In addition, we are not including PassengerBooking and BookingPackage as we found that they were empty and there was no information to include.
+
+Finally, we can copy in the rest of the tables which do not conflict or overlap with our data:
+
+- CodeShare (where flightNumber exists in Flight)
+- Package
+- Passenger
+
+All the additional tables we created are in the [Added_Tables_Integration_Stage.sql](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/Added_Tables_Integration_Stage.sql) file.
+
+And the complex queries to copy the data based on various criteria in order to make the databases match are [here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/alter_tables.sql).
 
