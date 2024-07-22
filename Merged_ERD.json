@@ -1,0 +1,1914 @@
+﻿{
+    "version": 2,
+    "www": "erdplus.com",
+    "shapes": [
+        {
+            "type": "Entity",
+            "details": {
+                "name": "Customer",
+                "type": "regular",
+                "x": 336,
+                "y": 120,
+                "isDisjointed": true,
+                "isTotalSpecialization": true,
+                "isSubtype": false,
+                "supertypeEntityId": null,
+                "id": 1
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "CustomerID",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": true,
+                "x": 336,
+                "y": 36,
+                "id": 4
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "Name",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 454,
+                "y": 62,
+                "id": 6
+            }
+        },
+        {
+            "type": "Entity",
+            "details": {
+                "name": "Identification",
+                "type": "regular",
+                "x": 1159,
+                "y": 123,
+                "isDisjointed": true,
+                "isTotalSpecialization": true,
+                "isSubtype": false,
+                "supertypeEntityId": null,
+                "id": 11
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "Category",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 1159,
+                "y": 39,
+                "id": 12
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "IdentificationID",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": true,
+                "x": 1231,
+                "y": 75,
+                "id": 14
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "BirthDate",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 1259,
+                "y": 123,
+                "id": 16
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "IssueDate",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 1231,
+                "y": 171,
+                "id": 18
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "ExpirationDate",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 1159,
+                "y": 207,
+                "id": 20
+            }
+        },
+        {
+            "type": "Relationship",
+            "details": {
+                "name": "IdentityOf",
+                "isIdentifying": false,
+                "x": 734,
+                "y": 122.16666412353516,
+                "slots": [
+                    {
+                        "slotIndex": 0,
+                        "minimum": "",
+                        "maximum": "",
+                        "participation": "mandatory",
+                        "cardinality": "many",
+                        "role": "",
+                        "entityId": 1
+                    },
+                    {
+                        "slotIndex": 1,
+                        "minimum": "",
+                        "maximum": "",
+                        "participation": "mandatory",
+                        "cardinality": "one",
+                        "role": "",
+                        "entityId": 11
+                    }
+                ],
+                "id": 22
+            }
+        },
+        {
+            "type": "Entity",
+            "details": {
+                "name": "RewardsCustomer",
+                "type": "regular",
+                "x": 164,
+                "y": 497.16666412353516,
+                "isDisjointed": true,
+                "isTotalSpecialization": true,
+                "isSubtype": false,
+                "supertypeEntityId": null,
+                "id": 25
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "MemberID",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 233,
+                "y": 578.1666641235352,
+                "id": 26
+            }
+        },
+        {
+            "type": "Relationship",
+            "details": {
+                "name": "IsA",
+                "isIdentifying": false,
+                "x": 165,
+                "y": 287.16666412353516,
+                "slots": [
+                    {
+                        "slotIndex": 0,
+                        "minimum": "",
+                        "maximum": "",
+                        "participation": "optional",
+                        "cardinality": "one",
+                        "role": "",
+                        "entityId": 1
+                    },
+                    {
+                        "slotIndex": 1,
+                        "minimum": "",
+                        "maximum": "",
+                        "participation": "mandatory",
+                        "cardinality": "one",
+                        "role": "",
+                        "entityId": 25
+                    }
+                ],
+                "id": 28
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "Status",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 292,
+                "y": 496.16666412353516,
+                "id": 29
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "SignUpDate",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 82,
+                "y": 575.1666641235352,
+                "id": 31
+            }
+        },
+        {
+            "type": "Entity",
+            "details": {
+                "name": "Flight",
+                "type": "regular",
+                "x": 1247,
+                "y": 522.1666717529297,
+                "isDisjointed": true,
+                "isTotalSpecialization": true,
+                "isSubtype": false,
+                "supertypeEntityId": null,
+                "id": 35
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "Date",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 1121,
+                "y": 523.1666717529297,
+                "id": 38
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "FlightID",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": true,
+                "x": 1124,
+                "y": 604.1666717529297,
+                "id": 40
+            }
+        },
+        {
+            "type": "Entity",
+            "details": {
+                "name": "Ticket",
+                "type": "regular",
+                "x": 824,
+                "y": 328.16666412353516,
+                "isDisjointed": true,
+                "isTotalSpecialization": true,
+                "isSubtype": false,
+                "supertypeEntityId": null,
+                "id": 66
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "TicketID",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": true,
+                "x": 834,
+                "y": 213.16666412353516,
+                "id": 67
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "TicketClass",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 937,
+                "y": 229.16666412353516,
+                "id": 69
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "SeatNumber",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 1050,
+                "y": 411.16666412353516,
+                "id": 71
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "DietaryRestriction",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 988,
+                "y": 280.16666412353516,
+                "id": 73
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "LuggageNumber",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 670,
+                "y": 359.16666412353516,
+                "id": 77
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "OversizedLuggage",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 731,
+                "y": 247.16666412353516,
+                "id": 79
+            }
+        },
+        {
+            "type": "Relationship",
+            "details": {
+                "name": "CustomerOf",
+                "isIdentifying": false,
+                "x": 503,
+                "y": 271.16666412353516,
+                "slots": [
+                    {
+                        "slotIndex": 0,
+                        "minimum": "",
+                        "maximum": "",
+                        "participation": "optional",
+                        "cardinality": "many",
+                        "role": "",
+                        "entityId": 1
+                    },
+                    {
+                        "slotIndex": 1,
+                        "minimum": "",
+                        "maximum": "",
+                        "participation": "mandatory",
+                        "cardinality": "one",
+                        "role": "",
+                        "entityId": 66
+                    }
+                ],
+                "id": 81
+            }
+        },
+        {
+            "type": "Relationship",
+            "details": {
+                "name": "FlightOf",
+                "isIdentifying": false,
+                "x": 1157,
+                "y": 379.16666412353516,
+                "slots": [
+                    {
+                        "slotIndex": 0,
+                        "minimum": "",
+                        "maximum": "",
+                        "participation": "mandatory",
+                        "cardinality": "one",
+                        "role": "",
+                        "entityId": 66
+                    },
+                    {
+                        "slotIndex": 1,
+                        "minimum": "",
+                        "maximum": "",
+                        "participation": "optional",
+                        "cardinality": "many",
+                        "role": "",
+                        "entityId": 35
+                    }
+                ],
+                "id": 82
+            }
+        },
+        {
+            "type": "Entity",
+            "details": {
+                "name": "Review",
+                "type": "regular",
+                "x": 826,
+                "y": 709.1666717529297,
+                "isDisjointed": true,
+                "isTotalSpecialization": true,
+                "isSubtype": false,
+                "supertypeEntityId": null,
+                "id": 87
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "ReviewID",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": true,
+                "x": 675,
+                "y": 708.1666717529297,
+                "id": 88
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "Rating",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 828,
+                "y": 787.1666870117188,
+                "id": 90
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "Comments",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 966,
+                "y": 712.1666717529297,
+                "id": 92
+            }
+        },
+        {
+            "type": "Relationship",
+            "details": {
+                "name": "ReviewOf",
+                "isIdentifying": false,
+                "x": 824.3333435058594,
+                "y": 566.1666717529297,
+                "slots": [
+                    {
+                        "slotIndex": 0,
+                        "minimum": "",
+                        "maximum": "",
+                        "participation": "optional",
+                        "cardinality": "one",
+                        "role": "",
+                        "entityId": 66
+                    },
+                    {
+                        "slotIndex": 1,
+                        "minimum": "",
+                        "maximum": "",
+                        "participation": "mandatory",
+                        "cardinality": "one",
+                        "role": "",
+                        "entityId": 87
+                    }
+                ],
+                "id": 94
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "IDnumber",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 1087,
+                "y": 171,
+                "id": 147
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "Country",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 1061,
+                "y": 69,
+                "id": 175
+            }
+        },
+        {
+            "type": "Entity",
+            "details": {
+                "name": "PetCustomer",
+                "type": "regular",
+                "x": 336,
+                "y": 374.1666660308838,
+                "isDisjointed": true,
+                "isTotalSpecialization": true,
+                "isSubtype": false,
+                "supertypeEntityId": null,
+                "id": 204
+            }
+        },
+        {
+            "type": "Relationship",
+            "details": {
+                "name": "IsA",
+                "isIdentifying": false,
+                "x": 336.33333587646484,
+                "y": 284.5,
+                "slots": [
+                    {
+                        "slotIndex": 0,
+                        "minimum": "",
+                        "maximum": "",
+                        "participation": "optional",
+                        "cardinality": "one",
+                        "role": "",
+                        "entityId": 1
+                    },
+                    {
+                        "slotIndex": 1,
+                        "minimum": "",
+                        "maximum": "",
+                        "participation": "mandatory",
+                        "cardinality": "one",
+                        "role": "",
+                        "entityId": 204
+                    }
+                ],
+                "id": 318
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "Species",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 335,
+                "y": 438.1666660308838,
+                "id": 349
+            }
+        },
+        {
+            "type": "Entity",
+            "details": {
+                "name": "FlightInfo",
+                "type": "regular",
+                "x": 1615,
+                "y": 410.5,
+                "isDisjointed": true,
+                "isTotalSpecialization": true,
+                "isSubtype": false,
+                "supertypeEntityId": null,
+                "id": 351
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "FlightCode",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": true,
+                "x": 1615,
+                "y": 326.5,
+                "id": 352
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "Destination",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 1717,
+                "y": 353.5,
+                "id": 354
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "Origin",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 1751,
+                "y": 412.5,
+                "id": 356
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "DepartureTime",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 1732,
+                "y": 486.5,
+                "id": 358
+            }
+        },
+        {
+            "type": "Relationship",
+            "details": {
+                "name": "InfoOf",
+                "isIdentifying": false,
+                "x": 1433,
+                "y": 409.5,
+                "slots": [
+                    {
+                        "slotIndex": 0,
+                        "minimum": "",
+                        "maximum": "",
+                        "participation": "mandatory",
+                        "cardinality": "one",
+                        "role": "",
+                        "entityId": 35
+                    },
+                    {
+                        "slotIndex": 1,
+                        "minimum": "",
+                        "maximum": "",
+                        "participation": "optional",
+                        "cardinality": "many",
+                        "role": "",
+                        "entityId": 351
+                    }
+                ],
+                "id": 390
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "MilesFlown",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 51,
+                "y": 497.16666412353516,
+                "id": 482
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "Zone",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 768,
+                "y": 501.16666412353516,
+                "id": 512
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "Assistance",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 881,
+                "y": 482.16666412353516,
+                "id": 543
+            }
+        },
+        {
+            "type": "Entity",
+            "details": {
+                "name": "Passenger",
+                "type": "regular",
+                "x": 1624,
+                "y": 657,
+                "isDisjointed": true,
+                "isTotalSpecialization": true,
+                "isSubtype": false,
+                "supertypeEntityId": null,
+                "id": 545
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "PassengerID",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": true,
+                "x": 1624,
+                "y": 573,
+                "id": 546
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "Name",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 1520,
+                "y": 715,
+                "id": 548
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "ContactInfo",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 1707,
+                "y": 718,
+                "id": 550
+            }
+        },
+        {
+            "type": "Entity",
+            "details": {
+                "name": "Package",
+                "type": "regular",
+                "x": 1623,
+                "y": 876,
+                "isDisjointed": true,
+                "isTotalSpecialization": true,
+                "isSubtype": false,
+                "supertypeEntityId": null,
+                "id": 552
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "PackageID",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": true,
+                "x": 1738,
+                "y": 876,
+                "id": 553
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "PackageName",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 1572,
+                "y": 942,
+                "id": 555
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "Price",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 1566,
+                "y": 807,
+                "id": 557
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "StartDate",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 1511,
+                "y": 878,
+                "id": 559
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "CarModel",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 1690,
+                "y": 941,
+                "id": 561
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "ReturnDate",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 1690,
+                "y": 810,
+                "id": 563
+            }
+        },
+        {
+            "type": "Entity",
+            "details": {
+                "name": "CodeShare",
+                "type": "regular",
+                "x": 1249,
+                "y": 839,
+                "isDisjointed": true,
+                "isTotalSpecialization": true,
+                "isSubtype": false,
+                "supertypeEntityId": null,
+                "id": 578
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "CodeShareID",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": true,
+                "x": 1250,
+                "y": 917,
+                "id": 579
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "MarketingAirline",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 1378,
+                "y": 841,
+                "id": 583
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "Restrictions",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 1123,
+                "y": 839,
+                "id": 585
+            }
+        },
+        {
+            "type": "Entity",
+            "details": {
+                "name": "Booking",
+                "type": "regular",
+                "x": 385,
+                "y": 787,
+                "isDisjointed": true,
+                "isTotalSpecialization": true,
+                "isSubtype": false,
+                "supertypeEntityId": null,
+                "id": 619
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "BookingID",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": true,
+                "x": 515,
+                "y": 786,
+                "id": 620
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "PassengerID",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": true,
+                "x": 254,
+                "y": 722,
+                "id": 622
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "BookingDate",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 236,
+                "y": 792,
+                "id": 624
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "Status",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 373,
+                "y": 693,
+                "id": 626
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "Cost",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 362,
+                "y": 870,
+                "id": 630
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "TicketNumber",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 251,
+                "y": 862,
+                "id": 632
+            }
+        },
+        {
+            "type": "Entity",
+            "details": {
+                "name": "CodeToLocation",
+                "type": "regular",
+                "x": 1613.3333740234375,
+                "y": 78.16666603088379,
+                "isDisjointed": true,
+                "isTotalSpecialization": true,
+                "isSubtype": false,
+                "supertypeEntityId": null,
+                "id": 828
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "City",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 1746.3333740234375,
+                "y": 79.16666603088379,
+                "id": 829
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "Citycode",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 1471.3333740234375,
+                "y": 78.16666603088379,
+                "id": 831
+            }
+        },
+        {
+            "type": "Entity",
+            "details": {
+                "name": "CustomerToPassenger",
+                "type": "regular",
+                "x": 1612.3333740234375,
+                "y": 192.1666660308838,
+                "isDisjointed": true,
+                "isTotalSpecialization": true,
+                "isSubtype": false,
+                "supertypeEntityId": null,
+                "id": 833
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "CustomerID",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 1483.3333740234375,
+                "y": 195.1666660308838,
+                "id": 834
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "PassengerID",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 1729.3333740234375,
+                "y": 193.1666660308838,
+                "id": 836
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "OriginalTicketNumber",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 1047,
+                "y": 323.5,
+                "id": 905
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "Price",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 982,
+                "y": 461.5,
+                "id": 907
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "Status",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 659,
+                "y": 441.5,
+                "id": 909
+            }
+        },
+        {
+            "type": "Relationship",
+            "details": {
+                "name": "bookingOf",
+                "isIdentifying": false,
+                "x": 618,
+                "y": 530,
+                "slots": [
+                    {
+                        "slotIndex": 0,
+                        "minimum": "",
+                        "maximum": "",
+                        "participation": "optional",
+                        "cardinality": "one",
+                        "role": "",
+                        "entityId": 66
+                    },
+                    {
+                        "slotIndex": 1,
+                        "minimum": "",
+                        "maximum": "",
+                        "participation": "optional",
+                        "cardinality": "many",
+                        "role": "",
+                        "entityId": 619
+                    }
+                ],
+                "id": 967
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "FlightNumber",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 1386,
+                "y": 521,
+                "id": 970
+            }
+        },
+        {
+            "type": "Relationship",
+            "details": {
+                "name": "FlightOf",
+                "isIdentifying": false,
+                "x": 1249,
+                "y": 704,
+                "slots": [
+                    {
+                        "slotIndex": 0,
+                        "minimum": "",
+                        "maximum": "",
+                        "participation": "optional",
+                        "cardinality": "many",
+                        "role": "",
+                        "entityId": 35
+                    },
+                    {
+                        "slotIndex": 1,
+                        "minimum": "",
+                        "maximum": "",
+                        "participation": "optional",
+                        "cardinality": "one",
+                        "role": "",
+                        "entityId": 578
+                    }
+                ],
+                "id": 972
+            }
+        },
+        {
+            "type": "Attribute",
+            "details": {
+                "name": "Capacity",
+                "isDerived": false,
+                "isMultivalued": false,
+                "isOptional": false,
+                "isComposite": false,
+                "isUnique": false,
+                "x": 1615,
+                "y": 494,
+                "id": 975
+            }
+        }
+    ],
+    "connectors": [
+        {
+            "type": "Connector",
+            "details": {
+                "id": 910
+            },
+            "source": 4,
+            "destination": 1
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 911
+            },
+            "source": 6,
+            "destination": 1
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 912
+            },
+            "source": 12,
+            "destination": 11
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 913
+            },
+            "source": 14,
+            "destination": 11
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 914
+            },
+            "source": 16,
+            "destination": 11
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 915
+            },
+            "source": 18,
+            "destination": 11
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 916
+            },
+            "source": 20,
+            "destination": 11
+        },
+        {
+            "type": "RelationshipConnector",
+            "details": {
+                "slotIndex": 0,
+                "id": 23
+            },
+            "source": 1,
+            "destination": 22
+        },
+        {
+            "type": "RelationshipConnector",
+            "details": {
+                "slotIndex": 1,
+                "id": 24
+            },
+            "source": 11,
+            "destination": 22
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 917
+            },
+            "source": 26,
+            "destination": 25
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 918
+            },
+            "source": 29,
+            "destination": 25
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 919
+            },
+            "source": 31,
+            "destination": 25
+        },
+        {
+            "type": "RelationshipConnector",
+            "details": {
+                "slotIndex": 0,
+                "id": 33
+            },
+            "source": 1,
+            "destination": 28
+        },
+        {
+            "type": "RelationshipConnector",
+            "details": {
+                "slotIndex": 1,
+                "id": 34
+            },
+            "source": 25,
+            "destination": 28
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 920
+            },
+            "source": 38,
+            "destination": 35
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 921
+            },
+            "source": 40,
+            "destination": 35
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 922
+            },
+            "source": 67,
+            "destination": 66
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 923
+            },
+            "source": 69,
+            "destination": 66
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 924
+            },
+            "source": 71,
+            "destination": 66
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 925
+            },
+            "source": 73,
+            "destination": 66
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 926
+            },
+            "source": 77,
+            "destination": 66
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 927
+            },
+            "source": 79,
+            "destination": 66
+        },
+        {
+            "type": "RelationshipConnector",
+            "details": {
+                "slotIndex": 0,
+                "id": 83
+            },
+            "source": 1,
+            "destination": 81
+        },
+        {
+            "type": "RelationshipConnector",
+            "details": {
+                "slotIndex": 1,
+                "id": 84
+            },
+            "source": 66,
+            "destination": 81
+        },
+        {
+            "type": "RelationshipConnector",
+            "details": {
+                "slotIndex": 0,
+                "id": 85
+            },
+            "source": 66,
+            "destination": 82
+        },
+        {
+            "type": "RelationshipConnector",
+            "details": {
+                "slotIndex": 1,
+                "id": 86
+            },
+            "source": 35,
+            "destination": 82
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 928
+            },
+            "source": 88,
+            "destination": 87
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 929
+            },
+            "source": 90,
+            "destination": 87
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 930
+            },
+            "source": 92,
+            "destination": 87
+        },
+        {
+            "type": "RelationshipConnector",
+            "details": {
+                "slotIndex": 0,
+                "id": 95
+            },
+            "source": 66,
+            "destination": 94
+        },
+        {
+            "type": "RelationshipConnector",
+            "details": {
+                "slotIndex": 1,
+                "id": 96
+            },
+            "source": 87,
+            "destination": 94
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 931
+            },
+            "source": 147,
+            "destination": 11
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 932
+            },
+            "source": 175,
+            "destination": 11
+        },
+        {
+            "type": "RelationshipConnector",
+            "details": {
+                "slotIndex": 0,
+                "id": 319
+            },
+            "source": 1,
+            "destination": 318
+        },
+        {
+            "type": "RelationshipConnector",
+            "details": {
+                "slotIndex": 1,
+                "id": 320
+            },
+            "source": 204,
+            "destination": 318
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 933
+            },
+            "source": 349,
+            "destination": 204
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 934
+            },
+            "source": 352,
+            "destination": 351
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 935
+            },
+            "source": 354,
+            "destination": 351
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 936
+            },
+            "source": 356,
+            "destination": 351
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 937
+            },
+            "source": 358,
+            "destination": 351
+        },
+        {
+            "type": "RelationshipConnector",
+            "details": {
+                "slotIndex": 0,
+                "id": 391
+            },
+            "source": 35,
+            "destination": 390
+        },
+        {
+            "type": "RelationshipConnector",
+            "details": {
+                "slotIndex": 1,
+                "id": 392
+            },
+            "source": 351,
+            "destination": 390
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 938
+            },
+            "source": 482,
+            "destination": 25
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 939
+            },
+            "source": 512,
+            "destination": 66
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 940
+            },
+            "source": 543,
+            "destination": 66
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 941
+            },
+            "source": 546,
+            "destination": 545
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 942
+            },
+            "source": 548,
+            "destination": 545
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 943
+            },
+            "source": 550,
+            "destination": 545
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 944
+            },
+            "source": 553,
+            "destination": 552
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 945
+            },
+            "source": 555,
+            "destination": 552
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 946
+            },
+            "source": 557,
+            "destination": 552
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 947
+            },
+            "source": 559,
+            "destination": 552
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 948
+            },
+            "source": 561,
+            "destination": 552
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 949
+            },
+            "source": 563,
+            "destination": 552
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 950
+            },
+            "source": 579,
+            "destination": 578
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 952
+            },
+            "source": 583,
+            "destination": 578
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 953
+            },
+            "source": 585,
+            "destination": 578
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 954
+            },
+            "source": 620,
+            "destination": 619
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 955
+            },
+            "source": 622,
+            "destination": 619
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 956
+            },
+            "source": 624,
+            "destination": 619
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 957
+            },
+            "source": 626,
+            "destination": 619
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 958
+            },
+            "source": 630,
+            "destination": 619
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 959
+            },
+            "source": 632,
+            "destination": 619
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 960
+            },
+            "source": 829,
+            "destination": 828
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 961
+            },
+            "source": 831,
+            "destination": 828
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 962
+            },
+            "source": 834,
+            "destination": 833
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 963
+            },
+            "source": 836,
+            "destination": 833
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 964
+            },
+            "source": 905,
+            "destination": 66
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 965
+            },
+            "source": 907,
+            "destination": 66
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 966
+            },
+            "source": 909,
+            "destination": 66
+        },
+        {
+            "type": "RelationshipConnector",
+            "details": {
+                "slotIndex": 0,
+                "id": 968
+            },
+            "source": 66,
+            "destination": 967
+        },
+        {
+            "type": "RelationshipConnector",
+            "details": {
+                "slotIndex": 1,
+                "id": 969
+            },
+            "source": 619,
+            "destination": 967
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 971
+            },
+            "source": 970,
+            "destination": 35
+        },
+        {
+            "type": "RelationshipConnector",
+            "details": {
+                "slotIndex": 0,
+                "id": 973
+            },
+            "source": 35,
+            "destination": 972
+        },
+        {
+            "type": "RelationshipConnector",
+            "details": {
+                "slotIndex": 1,
+                "id": 974
+            },
+            "source": 578,
+            "destination": 972
+        },
+        {
+            "type": "Connector",
+            "details": {
+                "id": 976
+            },
+            "source": 975,
+            "destination": 351
+        }
+    ],
+    "width": 4000,
+    "height": 1000
+}

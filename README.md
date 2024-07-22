@@ -375,6 +375,12 @@ Note: The Update Miles Flown trigger currently uses a placeholder value of 1000 
 
 ## Integration
 
+#### ERD and DSD from the foreign Database
+
+![foreignERD](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/foreign_ERD.jpg)
+
+![foreignDSD](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/foreign_DSD.jpg)
+
 #### Created new database in postgres called AirlineDB (to match their name)
 
 Ran restore, but got an error because they used a role that we don't have, so we ran restore with `--no-owner` flag and then it worked.
@@ -470,3 +476,10 @@ All the additional tables we created are in the [Added_Tables_Integration_Stage.
 
 And the complex queries to copy the data based on various criteria in order to make the databases match are [here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/alter_tables.sql).
 
+#### Merged ERD and DSD
+
+After our integration process, these are the resulting ERD and DSD of our new database with the foreign database merged in.
+
+![mergedERD](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/merged_ERD.png)
+
+![mergedDSD](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/merged_DSD.png)
