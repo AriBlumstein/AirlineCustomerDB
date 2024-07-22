@@ -8,7 +8,8 @@ CREATE TABLE CustomerToPassenger
 (
 	CustomerID INTEGER,
 	PassengerID INTEGER
-)
+);
+
 
 CREATE TABLE Local_Booking (
     BookingID SERIAL PRIMARY KEY,
