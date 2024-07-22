@@ -58,7 +58,7 @@ After the command, enter your password for your postgres user.
 
 ## Restore Command:
 
-We ran into an issue when restoring, due to foreigh key constraints not necessarily being met when the running commands in different orders, so we enabled the  "disable triggers" option which solved this issue.
+We ran into an issue when restoring, due to foreign key constraints not necessarily being met when the running commands in different orders, so we enabled the  "disable triggers" option which solved this issue.
 
 ```sh
 pg_restore --host "localhost" --port "5432" --username "postgres"
@@ -87,7 +87,7 @@ After the command, enter your password for your postgres user.
 
 ## Restore Command:
 
-We ran into an issue when restoring, due to foreigh key constraints not necessarily being met when the running commands in different orders, so we enabled the  "disable triggers" option which solved this issue.
+We ran into an issue when restoring, due to foreign key constraints not necessarily being met when the running commands in different orders, so we enabled the  "disable triggers" option which solved this issue.
 
 ```sh
 pg_restore --host "localhost" --port "5432" --username "postgres" 
@@ -402,7 +402,7 @@ OPTIONS (user 'postgres', password 'password');
 
 #### Now we are going to start copying the foreign data into our database.
 
-The first thing we need to do do, is create the enums from the foreign database:
+The first thing we need to do, is create the enums from the foreign database:
 
 ```sql
 CREATE TYPE ticket_class AS ENUM ('Economy', 'EconPlus', 'Business', 'First');
