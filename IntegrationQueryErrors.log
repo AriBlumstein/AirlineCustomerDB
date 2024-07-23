@@ -1,7 +1,7 @@
-Query errors
+*** Query errors ***
 
 
-Update on view 1:
+** Query 2: Update on view 1 **
 ERROR:  Views containing GROUP BY are not automatically updatable.cannot update view "codesharerevenue" 
 
 ERROR:  cannot update view "codesharerevenue"
@@ -10,7 +10,7 @@ Detail: Views containing GROUP BY are not automatically updatable.
 Hint: To enable updating the view, provide an INSTEAD OF UPDATE trigger or an unconditional ON UPDATE DO INSTEAD rule.
 
 
-Insert on view 1:
+** Query 3: Insert on view 1 **
 ERROR:  Views containing GROUP BY are not automatically updatable.cannot insert into view "codesharerevenue" 
 
 ERROR:  cannot insert into view "codesharerevenue"
@@ -19,7 +19,7 @@ Detail: Views containing GROUP BY are not automatically updatable.
 Hint: To enable inserting into the view, provide an INSTEAD OF INSERT trigger or an unconditional ON INSERT DO INSTEAD rule.'
 
 
-Delete on View 1:
+** Query 4: Delete on View 1 **
 ERROR:  Views containing GROUP BY are not automatically updatable.cannot delete from view "codesharerevenue" 
 
 ERROR:  cannot delete from view "codesharerevenue"
@@ -28,7 +28,7 @@ Detail: Views containing GROUP BY are not automatically updatable.
 Hint: To enable deleting from the view, provide an INSTEAD OF DELETE trigger or an unconditional ON DELETE DO INSTEAD rule.
 
 
-Update on View 2:
+** Query 6: Update on View 2 **
 ERROR:  Views that do not select from a single table or view are not automatically updatable.cannot update view "flightcapacityinfo" 
 
 ERROR:  cannot update view "flightcapacityinfo"
@@ -37,7 +37,7 @@ Detail: Views that do not select from a single table or view are not automatical
 Hint: To enable updating the view, provide an INSTEAD OF UPDATE trigger or an unconditional ON UPDATE DO INSTEAD rule.
 
 
-Insert on View 2:
+** Query 7: Insert on View 2 **
 ERROR:  Views that do not select from a single table or view are not automatically updatable.cannot insert into view "flightcapacityinfo" 
 
 ERROR:  cannot insert into view "flightcapacityinfo"
@@ -45,7 +45,7 @@ SQL state: 55000
 Detail: Views that do not select from a single table or view are not automatically updatable.
 Hint: To enable inserting into the view, provide an INSTEAD OF INSERT trigger or an unconditional ON INSERT DO INSTEAD rule.
 
-Delete on View 2:
+** Query 8: Delete on View 2 **
 ERROR:  Views that do not select from a single table or view are not automatically updatable.cannot delete from view "flightcapacityinfo" 
 
 ERROR:  cannot delete from view "flightcapacityinfo"
