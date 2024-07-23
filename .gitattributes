@@ -2,3 +2,4 @@
 *.csv filter=lfs diff=lfs merge=lfs -text
 backupSQL.sql filter=lfs diff=lfs merge=lfs -text
 backupSQLinserts.sql filter=lfs diff=lfs merge=lfs -text
+mergedBackupSQL.sql filter=lfs diff=lfs merge=lfs -text
