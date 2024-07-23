@@ -499,7 +499,7 @@ We added views that encorporated data from the two original databases. The views
 1. The CodeShareRevenue view: Allows the revenue management team to analyze the performance of codeshare flights, identify the most profitable routes, and make informed decisions about airline partnerships.
 2. The FlightCapacityInfo view: Enable flight management teams to monitor and manage flight capacities and booking statuses.
 
-The creation of these views can be viewed **[here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/Intergrated_Views.sql)**.
+The creation of these views can be viewed **[here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/Integrated_Views.sql)**.
 
 #### Queries on the integrated views.
 
@@ -518,7 +518,7 @@ We ran several SELECT, INSERT, UPDATE, and DELETE queries on these two views. Th
 11. Retrieve bookings for flights with status of booked (FlightCapacityInfo)
 12. Retrieve flights with bookings with a price above $800 (FlightCapacityInfo)
 
-The various queries can be viewed **[here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/IntegrationQueries)**.
+The various queries can be viewed **[here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/Integration_Queries.sql)**.
 
 We found that any query that tried to manipulate the tables failed in the first view since any view that has a GROUP BY statement is not automatically updatable, and failed for the second view since any view that uses more than one table is not automatically updatable.
 
