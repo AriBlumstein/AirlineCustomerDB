@@ -492,3 +492,53 @@ After our integration process, these are the resulting ERD and DSD of our new da
 
 The json file for the merged ERD can be found **[here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/Merged_ERD.json)**.
 
+### Views
+
+We added views that encorporated data from the two original databases. The views are as follows:
+
+1. The CodeShareRevenue view: Allows the revenue management team to analyze the performance of codeshare flights, identify the most profitable routes, and make informed decisions about airline partnerships.
+2. The FlightCapacityInfo view: Enable flight management teams to monitor and manage flight capacities and booking statuses.
+
+The creation of these views can be viewed **[here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/Intergrated_Views.sql)**.
+
+#### Queries on the integrated views.
+
+We ran several SELECT, INSERT, UPDATE, and DELETE queries on these two views. The queries were as follows.
+
+1. Get the top 5 most profitable codeshare flights (CodeShareRevenue)
+2. Adjust the marketing airline for a specific codeshare flight (CodeShareRevenue)
+3. Add a new codeshare flight (CodeShareRevenue)
+4. Delete the record with codeshare id 3895 (CodeShareRevenue)
+5. Retrieve current capacity and statuses of the customers for all flights (FlightCapacityInfo)
+6. Change the capacity and status for all customers of an existing flight (FlightCapacityInfo)
+7. Add a new flight and its capacity (FlightCapacityInfo)
+8. Delete a flight from the schedule (FlightCapacityInfo)
+9. Calculate the average revenue per ticket for each marketing airline (CodeShareRevenue)
+10. Find the total revenue for the year 2024 (CodeShareRevenue)
+11. Retrieve bookings for flights with status of booked (FlightCapacityInfo)
+12. Retrieve flights with bookings with a price above $800 (FlightCapacityInfo)
+
+The various queries can be viewed **[here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/IntegrationQueries)**.
+
+We found that any query that tried to manipulate the tables failed in the first view since any view that has a GROUP BY statement is not automatically updatable, and failed for the second view since any view that uses more than one table is not automatically updatable.
+
+The error messages for these views can be viewed **[here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/IntegrationQueryErrors.log)**.
+
+The runtime analysis of of the queries can be viewed **[here](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/IntegrationQueryTimings.log)**.
+
+#### Summary of Query Timings
+
+| Query Number | Runtime (ms)                  |
+|--------------|-------------------------------|
+| 1            | 3.749                         |
+| 2            | N/A                           |
+| 3            | N/A                           |
+| 4            | N/A                           |
+| 5            | 53.096                        |
+| 6            | N/A                           |
+| 7            | N/A                           |
+| 8            | N/A                           |
+| 9            | 175.992                       |
+| 10           | 251.563                       |
+| 11           | 31.632                        |
+| 12           | 38.287                        |

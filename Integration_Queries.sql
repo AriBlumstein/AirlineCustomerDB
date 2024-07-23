@@ -23,7 +23,7 @@ WHERE CodeShareID = 3895;
 
 
 -- Queries for view 2
--- Query 5: Select query to retrieve Current Capacity and Status for All Flights
+-- Query 5: Select query to retrieve current capacity and statuses of the customers for all flights
 SELECT
 	bookingID,
     flightNumber, 
@@ -33,16 +33,16 @@ SELECT
 FROM 
     FlightCapacityInfo;
 
--- Query 6: Update query to Change the Capacity and Status of an Existing Flight
+-- Query 6: Update query to change the capacity and status for all customers of an existing flight
 UPDATE flightCapacityInfo
 SET capacity = 180, status = 'Cancelled'
 WHERE flightNumber = 147 and DepartureDate = '2024-12-11';
 
--- Query 7: Insert query to Add a New Flight and Its Capacity
+-- Query 7: Insert query to add a new flight and its capacity
 INSERT INTO flightCapacityInfo (flightNumber, departureDate, capacity, status, bookingID, price)
 VALUES (23534, '2024-08-01', 201, 'Booked', 83811, 360);
 
--- Query 8: Delete a Flight from the Schedule
+-- Query 8: Delete a flight from the schedule
 DELETE FROM flightCapacityInfo
 WHERE FlightNumber = 147;
 
@@ -60,13 +60,13 @@ ORDER BY
     AvgRevenuePerTicket DESC;
 
 -- Query 10
--- Extra query for View 1: find the total revenue for the year 2024:
+-- Extra query for View 1: Find the total revenue for the year 2024
 SELECT SUM(TotalRevenue) AS TotalRevenueInRange
 FROM CodeShareRevenue
 WHERE FlightDate BETWEEN '2024-01-01' AND '2024-12-31';
 
 -- Query 11
--- Extra Select query for View 2: Retrieve Tickets for Flights with status of Booked
+-- Extra Select query for View 2: Retrieve bookings for flights with status of booked
 SELECT 
     flightNumber, 
     departureDate, 
@@ -78,7 +78,7 @@ WHERE
     status = 'Booked';
 
 -- Query 12
--- Extra Select query for View 2: Retrieve Flights with Bookings Above $800
+-- Extra Select query for View 2: Retrieve flights with bookings with a price above $800
 SELECT 
     flightNumber, 
     departureDate, 
