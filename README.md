@@ -542,3 +542,5 @@ The runtime analysis of of the queries can be viewed **[here](https://github.com
 | 10           | 251.563                       |
 | 11           | 31.632                        |
 | 12           | 38.287                        |
+
+The newly merged database was backed up and can be restored from [this file](https://github.com/AriBlumstein/AirlineCustomerDB/blob/main/mergedBackupSQL.sql) using the same commands used above for restore.
