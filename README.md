@@ -2,6 +2,8 @@
 
 ## Ariel Blumstein & Binyamin Klein
 
+Disclaimer: This project was done for educational and demonstration purposes only, and all data is fabricated, not relating to any information that exists in reality.
+
 ## Project Proposal
 
 The goal of our database is to support the operations related to airlines and customers.
